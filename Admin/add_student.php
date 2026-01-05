@@ -252,6 +252,20 @@ if ($result && $result->num_rows > 0) {
         <p class="no-student">No students available.</p>
     <?php endif; ?>
 </div>
+<script>
+function showStudents(){
+    const selectedClass=document.getElementById("classFilter").value;
+    const container=document.getElementById("studentContainer");
+    const cards=document.querySelectorAll(".student-card");
 
+    container.style.display="block";
+
+    cards.forEach(card=>{
+        card.style.display=
+            (selectedClass==="" || card.dataset.class===selectedClass)
+            ? "block" : "none";
+    });
+}
+</script>
 </body>
 </html>
