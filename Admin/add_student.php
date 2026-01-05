@@ -16,6 +16,22 @@ if ($result && $result->num_rows > 0) {
         $classes[] = $row;
     }
 }
+
+// Fetch students with class info
+$students = [];
+$sql = "
+    SELECT s.student_id, s.name, s.email, s.gender, s.date_of_birth, c.class_name
+    FROM students s
+    JOIN classes c ON s.class_id = c.class_id
+    ORDER BY c.class_name, s.name
+";
+$result = $conn->query($sql);
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $students[] = $row;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,6 +113,59 @@ if ($result && $result->num_rows > 0) {
       color: #fff;
     }
 
+/* Student List Box */
+.student-box {
+    max-width: 1000px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    margin: 30px auto 60px auto;
+}
+
+.student-box h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Grid */
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.student-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    border-left: 5px solid #00bfff;
+    transition: 0.3s;
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.student-card h4 {
+    margin: 0 0 8px;
+    color: #00bfff;
+}
+
+.student-card p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.no-student {
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+}
+
     </style>
 </head>
 
@@ -163,5 +232,26 @@ if ($result && $result->num_rows > 0) {
 
         <a href="students.php">⬅ Back to Manage Students</a>
     </div>
+    <div class="student-box">
+    <h3>Available Students</h3>
+
+    <?php if (!empty($students)): ?>
+        <div class="student-grid">
+            <?php foreach ($students as $student): ?>
+                <div class="student-card">
+                    <h4><?php echo htmlspecialchars($student['name']); ?></h4>
+                    <p><strong>ID:</strong> <?php echo $student['student_id']; ?></p>
+                    <p><strong>Class:</strong> <?php echo htmlspecialchars($student['class_name']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($student['email']); ?></p>
+                    <p><strong>Gender:</strong> <?php echo $student['gender']; ?></p>
+                    <p><strong>DOB:</strong> <?php echo $student['date_of_birth']; ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p class="no-student">No students available.</p>
+    <?php endif; ?>
+</div>
+
 </body>
 </html>
