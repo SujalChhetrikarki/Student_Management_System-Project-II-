@@ -232,26 +232,40 @@ if ($result && $result->num_rows > 0) {
 
         <a href="students.php">⬅ Back to Manage Students</a>
     </div>
-    <div class="student-box">
-    <h3>Available Students</h3>
-
-    <?php if (!empty($students)): ?>
-        <div class="student-grid">
-            <?php foreach ($students as $student): ?>
-                <div class="student-card">
-                    <h4><?php echo htmlspecialchars($student['name']); ?></h4>
-                    <p><strong>ID:</strong> <?php echo $student['student_id']; ?></p>
-                    <p><strong>Class:</strong> <?php echo htmlspecialchars($student['class_name']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($student['email']); ?></p>
-                    <p><strong>Gender:</strong> <?php echo $student['gender']; ?></p>
-                    <p><strong>DOB:</strong> <?php echo $student['date_of_birth']; ?></p>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <p class="no-student">No students available.</p>
-    <?php endif; ?>
+    
 </div>
+<!-- Student Viewer -->
+<div class="student-box">
+<h3>View Students</h3>
+
+<div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;">
+    <select id="classFilter">
+        <option value="">-- Select Class --</option>
+        <?php foreach ($classes as $class): ?>
+            <option value="<?= htmlspecialchars($class['class_name']) ?>">
+                <?= htmlspecialchars($class['class_name']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <button onclick="showStudents()">Show Students</button>
+</div>
+
+<div id="studentContainer" style="display:none;">
+    <div class="student-grid">
+        <?php foreach ($students as $student): ?>
+            <div class="student-card" data-class="<?= htmlspecialchars($student['class_name']) ?>">
+                <h4><?= htmlspecialchars($student['name']) ?></h4>
+                <p><b>ID:</b> <?= $student['student_id'] ?></p>
+                <p><b>Class:</b> <?= htmlspecialchars($student['class_name']) ?></p>
+                <p><b>Email:</b> <?= htmlspecialchars($student['email']) ?></p>
+                <p><b>Gender:</b> <?= $student['gender'] ?></p>
+                <p><b>DOB:</b> <?= $student['date_of_birth'] ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+</div>
+
 <script>
 function showStudents(){
     const selectedClass=document.getElementById("classFilter").value;
