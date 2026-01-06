@@ -201,7 +201,6 @@ if ($result && $result->num_rows > 0) {
         <?php endif; ?>
 
         <form action="add_student_process.php" method="POST">
-            <input type="text" name="student_id" placeholder="Student ID" required>
             <input type="text" name="name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
