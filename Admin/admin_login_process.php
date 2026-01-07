@@ -1,44 +1,56 @@
 <?php
-
-// Extend session lifetime (e.g. 7 days)
-$lifetime = 60 * 60 * 24 * 7; // 7 days
+// Extend session lifetime (7 days)
+$lifetime = 60 * 60 * 24 * 7;
 
 session_set_cookie_params([
     'lifetime' => $lifetime,
     'path' => '/',
-    'domain' => '', 
+    'domain' => '',
     'secure' => isset($_SERVER['HTTPS']),
     'httponly' => true,
     'samesite' => 'Strict'
-]); 
-session_start();
-include '../Database/db_connect.php'; 
+]);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $admin_id = trim($_POST['admin_id']);
+session_start();
+include '../Database/db_connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $email    = trim($_POST['email']);   // ✅ matches DB column
     $password = trim($_POST['password']);
 
-    $stmt = $conn->prepare("SELECT admin_id, name, password FROM admins WHERE admin_id = ?");
+    $stmt = $conn->prepare("
+        SELECT admin_id, name, email, password
+        FROM admins
+        WHERE email = ?
+        LIMIT 1
+    ");
+
     if (!$stmt) {
         die("SQL Error: " . $conn->error);
     }
 
-    $stmt->bind_param("s", $admin_id);
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result && $row = $result->fetch_assoc()) {
+    if ($row = $result->fetch_assoc()) {
 
         if (password_verify($password, $row['password'])) {
-            $_SESSION['admin_id']   = $row['admin_id'];
-            $_SESSION['admin_name'] = $row['name'];
+
+            // ✅ Session values
+            $_SESSION['admin_id']    = $row['admin_id'];
+            $_SESSION['admin_name']  = $row['name'];
+            $_SESSION['admin_email'] = $row['email'];
 
             header("Location: index.php");
             exit();
+
         } else {
             header("Location: admin.php?error=wrong_password");
             exit();
         }
+
     } else {
         header("Location: admin.php?error=not_found");
         exit();

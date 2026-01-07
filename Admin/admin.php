@@ -30,7 +30,7 @@
             margin-bottom: 25px;
             color: #333;
         }
-        .admin-box input[type="text"],
+        .admin-box input[type="email"],
         .admin-box input[type="password"] {
             width: 100%;
             padding: 12px;
@@ -80,25 +80,27 @@
 <main>
     <div class="admin-box">
         <h2>Admin Login</h2>
+
         <a href="../index.php">
-            <img src="../Images/logo.jpg" alt="Logo" 
-                 style="display:block; margin:0 auto 20px auto; width:80px; height:80px; object-fit:cover; border-radius:10px;">
+            <img src="../Images/logo.jpg" alt="Logo"
+                 style="display:block; margin:0 auto 20px; width:80px; height:80px; object-fit:cover; border-radius:10px;">
         </a>
 
         <form action="admin_login_process.php" method="post">
-            <label for="admin_email">Admin Email :</label>
-            <input type="text" id="admin_email" name="admin_email" required>
             
+            <label for="email">Admin Email :</label>
+            <input type="email" id="email" name="email" placeholder="Admin Email" required>
+
             <label for="password">Password :</label>
-            <input type="password" id="password" name="password" required>
-            
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
             <button type="submit">Login</button>
         </form>
 
         <a href="#" class="signup-btn" id="secureSignUp">Sign Up as Admin</a>
         <p class="note">⚠ Only authorized administrators are allowed.</p>
 
-        <!-- Hidden form to send secret code -->
+        <!-- Hidden form for admin access code -->
         <form action="verify_admin_code.php" method="POST" id="codeForm" style="display:none;">
             <input type="hidden" name="code" id="hiddenCode">
         </form>
@@ -110,15 +112,15 @@
 <script>
     // Load header and footer
     fetch("adminheader.php")
-      .then(res => res.text())
-      .then(data => document.getElementById("header").innerHTML = data);
+        .then(res => res.text())
+        .then(data => document.getElementById("header").innerHTML = data);
 
     fetch("adminfooter.php")
-      .then(res => res.text())
-      .then(data => document.getElementById("footer").innerHTML = data);
+        .then(res => res.text())
+        .then(data => document.getElementById("footer").innerHTML = data);
 
     // Secure Admin Signup Code
-    document.getElementById("secureSignUp").addEventListener("click", function(e) {
+    document.getElementById("secureSignUp").addEventListener("click", function (e) {
         e.preventDefault();
         const code = prompt("🔒 Enter Admin Access Code:");
         if (code) {

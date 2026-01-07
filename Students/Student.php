@@ -12,12 +12,6 @@
             min-height: 100vh;
             margin: 0;
         }
-        #header, #footer {
-            background: #fff;
-            color: #333;
-            padding: 15px;
-            text-align: center;
-        }
         main {
             flex: 1;
             display: flex;
@@ -35,7 +29,7 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        .login-box input[type="text"],
+        .login-box input[type="email"],
         .login-box input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -59,39 +53,36 @@
     </style>
 </head>
 <body>
-    <!-- Header will be loaded -->
-    <div id="header"></div>
 
-    <!-- Main Content -->
-    <main>
-        <div class="login-box">
-            <h2>Student Login</h2>
-            <form action="login_process.php" method="post">
-                <label for="student_id">ID :</label>
-                <input type="text" id="student_id" name="student_id" required>
-                
-                <label for="password">Password :</label>
-                <input type="password" id="password" name="password" required>
+<div id="header"></div>
 
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    </main>
+<main>
+    <div class="login-box">
+        <h2>Student Login</h2>
 
-    <!-- Footer will be loaded -->
-    <div id="footer"></div>
+        <form action="login_process.php" method="post">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
 
-    <!-- Script to load header & footer -->
-    <script>
-        // Load Header
-        fetch("../Header.php")
-          .then(res => res.text())
-          .then(data => document.getElementById("header").innerHTML = data);
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="password" required>
 
-        // Load Footer
-        fetch("../Footer.php")
-          .then(res => res.text())
-          .then(data => document.getElementById("footer").innerHTML = data);
-    </script>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</main>
+
+<div id="footer"></div>
+
+<script>
+    fetch("../Header.php")
+        .then(res => res.text())
+        .then(data => document.getElementById("header").innerHTML = data);
+
+    fetch("../Footer.php")
+        .then(res => res.text())
+        .then(data => document.getElementById("footer").innerHTML = data);
+</script>
+
 </body>
 </html>
