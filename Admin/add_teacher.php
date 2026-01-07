@@ -136,7 +136,6 @@ form button:hover { background:#007bb5; }
     <?php endif; ?>
 
     <form action="add_teacher_process.php" method="POST" id="addTeacherForm">
-        <input type="text" name="teacher_id" placeholder="Teacher ID" required>
         <input type="text" name="name" placeholder="Full Name" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
