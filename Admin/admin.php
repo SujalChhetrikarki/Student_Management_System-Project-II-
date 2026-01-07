@@ -86,8 +86,8 @@
         </a>
 
         <form action="admin_login_process.php" method="post">
-            <label for="admin_id">Admin ID :</label>
-            <input type="text" id="admin_id" name="admin_id" required>
+            <label for="admin_email">Admin Email :</label>
+            <input type="text" id="admin_email" name="admin_email" required>
             
             <label for="password">Password :</label>
             <input type="password" id="password" name="password" required>
