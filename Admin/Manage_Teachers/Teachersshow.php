@@ -83,6 +83,7 @@ if (!$result) {
         <a href="./Teachersshow.php">👨‍🏫 Manage Teachers</a>
         <a href="../Classes/classes.php">🏫 Manage Classes</a>
         <a href="../subjects.php">📖 Manage Subjects</a>
+        <a href="../Managebook.php">📚 Manage Books</a>
         <a href="../add_student.php">➕ Add Student</a>
         <a href="../add_teacher.php">➕ Add Teacher</a>
         <a href="../Add_exam/add_exam.php">➕ Add Exam</a>
