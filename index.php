@@ -3,76 +3,190 @@
 <head>
   <meta charset="UTF-8">
   <title>Student Management System</title>
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #6dd5ed;
+      color: #333;
+    }
+
+    header {
+      background: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #007bff;
+    }
+
+    /* Login Section */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 20px 40px;
+    }
+
+    .login-card {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 14px;
+      width: 360px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+
+    .login-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .login-card h2 {
+      margin-bottom: 25px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    /* About Section */
+    .about-section {
+      max-width: 900px;
+      margin: 40px auto 80px;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .about-section h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    .about-section p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #555;
+      max-width: 750px;
+      margin: 0 auto 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #666;
+      font-size: 14px;
+      background: #ffffff;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+  </style>
 </head>
+
 <body>
 
- <header style="background:#fff; display:flex; justify-content:space-between; align-items:center; padding:12px 40px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-  
-  <!-- Logo Section -->
+<header>
   <div style="display:flex; align-items:center; gap:10px;">
-    <img src="Images/logo.jpg" alt="Logo"style="width:50px; height:50px; object-fit:cover; border-radius:8px;">
-    <span style="font-weight:bold; font-size:18px; color:#333;">Student Management</span>
+    <img src="Images/logo.jpg" alt="Logo" style="width:45px; height:45px; border-radius:8px;">
+    <strong>Student Management</strong>
   </div>
 
-  <!-- Navigation -->
   <nav>
     <a href="index.php">Home</a>
     <a href="./Admin/admin.php">Admin</a>
     <a href="./Students/student.php">Student</a>
     <a href="./Teachers/teacher.php">Teacher</a>
   </nav>
-
 </header>
 
-  <!-- Main Content -->
-  <main class="container">
-    <h1>Welcome to Student Management System</h1>
-    <div class="cards">
+<!-- Login -->
+<div class="login-container">
+  <div class="login-card">
+    <img src="Images/logo.jpg" alt="School Logo">
+    <h2>Login Portal</h2>
 
-      <a href="./Admin/admin.php" class="card">
-        <img src="Images/admin.jpg" alt="Admin">
-        <h2>Admin</h2>
-      </a>
+    <select id="role">
+      <option value="student" selected>Student</option>
+      <option value="teacher">Teacher</option>
+    </select>
 
-      <a href="./Students/Student.php" class="card">
-        <img src="Images/student.jpg" alt="Student">
-        <h2>Student</h2>
-      </a>
+    <button onclick="redirectLogin()">Login</button>
+  </div>
+</div>
 
-      <a href="./Teachers/Teacher.php" class="card">
-        <img src="Images/teacher.jpg" alt="Teacher">
-        <h2>Teacher</h2>
-      </a>
-      
-    </div>
-  </main>
-<img src="Images/logo.jpg" alt="School" 
-     style="width:200px; height:200px; object-fit:cover; border-radius:8px; display:block; margin: 0 auto; position: relative; top: -0.1px;">
-<!-- About Section -->
-<section style="background:#f0f4f8; padding:40px 20px; text-align:center; border-radius:12px; margin:40px auto; max-width:900px;">
-  <h2 style="font-size:28px; color:#333; margin-bottom:15px;">About Diversity Academy</h2>
-  <p style="font-size:16px; color:#555; line-height:1.6; max-width:800px; margin:0 auto 20px;">
-    Diversity Academy is committed to nurturing students from all backgrounds, fostering creativity, critical thinking, and collaboration. 
-    With a focus on <strong>digitalization</strong>, we integrate modern technology into learning, making education accessible, engaging, and innovative.
+<!-- About -->
+<section class="about-section">
+  <h2>About Diversity Academy</h2>
+
+  <p>
+    Diversity Academy is committed to nurturing students from all backgrounds by promoting
+    creativity, critical thinking, and collaboration in a supportive academic environment.
   </p>
-  <p style="font-size:16px; color:#555; line-height:1.6; max-width:800px; margin:0 auto;">
-    Our students are empowered to excel academically and personally, using digital tools for research, collaboration, and skill development. 
-    We aim to prepare the next generation of leaders for a fast-changing digital world.
+
+  <p>
+    With a strong focus on digitalization, we integrate modern technology into education,
+    empowering students with tools for research, communication, and skill development.
+  </p>
+
+  <p>
+    Our mission is to prepare confident, responsible learners who are ready to succeed
+    in an evolving digital world.
   </p>
 </section>
 
+<footer>
+  © 2026 Diversity Academy | Student Management System
+</footer>
 
-  <!-- Footer will be loaded here -->
-  <div id="footer"></div>
+<script>
+  function redirectLogin() {
+    const role = document.getElementById("role").value;
 
-  <!-- Script to load header & footer -->
-  <script>
-    // Load Footer
-    fetch("./Footer.php")
-      .then(res => res.text())
-      .then(data => document.getElementById("footer").innerHTML = data);
-  </script>
+    if (role === "student") {
+      window.location.href = "./Students/student.php";
+    } else if (role === "admin") {
+      window.location.href = "./Admin/admin.php";
+    } else if (role === "teacher") {
+      window.location.href = "./Teachers/teacher.php";
+    }
+  }
+</script>
 
 </body>
 </html>
