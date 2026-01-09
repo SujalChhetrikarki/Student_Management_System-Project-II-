@@ -121,19 +121,43 @@
 
 <body>
 
-<header>
-  <div style="display:flex; align-items:center; gap:10px;">
-    <img src="Images/logo.jpg" alt="Logo" style="width:45px; height:45px; border-radius:8px;">
-    <strong>Student Management</strong>
-  </div>
+<header style="
+    background:#ffffff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 50px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+">
+    <!-- Logo -->
+    <div style="display:flex; align-items:center; gap:12px;">
+        <img src="Images/logo.jpg" 
+             alt="Logo"
+             style="
+                width:48px;
+                height:48px;
+                object-fit:cover;
+                border-radius:10px;
+             ">
+        <div>
+            <div style="font-size:18px; font-weight:600; color:#333;">
+                Student Management
+            </div>
+            <div style="font-size:13px; color:#777;">
+                Diversity Academy
+            </div>
+        </div>
+    </div>
 
-  <nav>
-    <a href="index.php">Home</a>
-    <a href="./Admin/admin.php">Admin</a>
-    <a href="./Students/student.php">Student</a>
-    <a href="./Teachers/teacher.php">Teacher</a>
-  </nav>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.php" style="margin-left:20px; text-decoration:none; color:#333;">Home</a>
+        <a href="Students/student.php" style="margin-left:20px; text-decoration:none; color:#333;">Student</a>
+        <a href="Teachers/teacher.php" style="margin-left:20px; text-decoration:none; color:#333;">Teacher</a>
+        <a href="Admin/admin.php" style="margin-left:20px; text-decoration:none; color:#333;">Admin</a>
+    </nav>
 </header>
+
 
 <!-- Login -->
 <div class="login-container">
