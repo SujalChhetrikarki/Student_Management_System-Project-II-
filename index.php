@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Student Management System</title>
-
   <style>
     body {
       margin: 0;
