@@ -8,7 +8,6 @@ if (!isset($_SESSION['teacher_id'])) {
 include '../Database/db_connect.php';
 $teacher_id = $_SESSION['teacher_id'];
 $message = "";
-
 // Handle password change
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $current = $_POST['current_password'];
