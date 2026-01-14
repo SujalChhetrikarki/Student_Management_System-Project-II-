@@ -52,7 +52,6 @@ body {
     color: #333;
 }
 
-/* Header */
 header {
     background: #0066cc;
     color: white;
