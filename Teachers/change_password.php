@@ -76,7 +76,6 @@ header h1 {
     background: #b52a37;
 }
 
-/* Container */
 .container {
     max-width: 500px;
     margin: 50px auto;
