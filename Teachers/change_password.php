@@ -124,7 +124,6 @@ button:hover {
 .success { color: green; }
 .error { color: red; }
 
-/* Back Link */
 .back-link {
     display: block;
     text-align: center;
