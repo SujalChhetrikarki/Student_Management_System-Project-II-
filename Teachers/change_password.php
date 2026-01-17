@@ -4,7 +4,6 @@ if (!isset($_SESSION['teacher_id'])) {
     header("Location: teacher_login.php");
     exit;
 }
-
 include '../Database/db_connect.php';
 $teacher_id = $_SESSION['teacher_id'];
 $message = "";
@@ -38,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
