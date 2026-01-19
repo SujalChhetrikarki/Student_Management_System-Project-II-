@@ -88,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_avg->execute();
         $stmt_avg->close();
     }
-
     $success = "✅ Marks updated successfully! Average marks calculated automatically.";
 }
 
