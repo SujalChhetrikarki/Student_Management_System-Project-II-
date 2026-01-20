@@ -90,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $success = "✅ Marks updated successfully! Average marks calculated automatically.";
 }
-
 /* 4️⃣ Fetch existing marks */
 $existing_marks = [];
 $stmt = $conn->prepare("SELECT student_id, marks_obtained FROM results WHERE exam_id = ?");
