@@ -14,7 +14,6 @@ $date = $_GET['date'] ?? date('Y-m-d');
 if (!$class_id) {
     die("❌ Invalid request: Missing class ID.");
 }
-
 // ==============================
 // Fetch subjects assigned to this teacher & class
 // ==============================
