@@ -61,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['attendance'])) {
         $res_check = $stmt_check->get_result();
 
         if($res_check->num_rows > 0){
-            // Insert or update attendance safely
 $stmt_insert = $conn->prepare("
     INSERT INTO attendance (student_id, class_id, subject_id, date, status)
     VALUES (?, ?, ?, ?, ?)
