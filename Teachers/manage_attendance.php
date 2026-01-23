@@ -69,7 +69,6 @@ $stmt_insert = $conn->prepare("
 $stmt_insert->bind_param("siiss", $student_id, $class_id, $subject_id, $date, $status);
 $stmt_insert->execute();
 
-
             if ($stmt_insert->error) {
                 echo "<p style='color:red;'>⚠ Error for student ID $student_id: {$stmt_insert->error}</p>";
             }
