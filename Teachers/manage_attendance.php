@@ -72,7 +72,6 @@ $stmt_insert->execute();
             if ($stmt_insert->error) {
                 echo "<p style='color:red;'>⚠ Error for student ID $student_id: {$stmt_insert->error}</p>";
             }
-
             $stmt_insert->close();
         } else {
             echo "<p style='color:red;'>⚠ Student ID $student_id does not belong to this class.</p>";
