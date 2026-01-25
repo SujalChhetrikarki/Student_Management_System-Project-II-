@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['attendance'])) {
     if (!$subject_id) {
         die("<p style='color:red;'>❌ Please select a subject before saving attendance.</p>");
     }
-
     foreach ($_POST['attendance'] as $student_id => $status) {
 
         // Validate student_id exists in this class
