@@ -11,7 +11,6 @@
       background: #6dd5ed;
       color: #333;
     }
-
     header {
       background: #ffffff;
       display: flex;
