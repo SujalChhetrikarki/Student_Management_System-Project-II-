@@ -19,7 +19,6 @@
       padding: 12px 40px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-
     nav a {
       margin-left: 20px;
       text-decoration: none;
