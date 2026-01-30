@@ -49,7 +49,6 @@ body {
     margin: 0;
     color: #333;
 }
-
 header {
     background: #0066cc;
     color: white;
