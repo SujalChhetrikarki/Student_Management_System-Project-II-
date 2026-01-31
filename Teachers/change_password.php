@@ -72,7 +72,6 @@ header h1 {
 .logout-btn:hover {
     background: #b52a37;
 }
-
 .container {
     max-width: 500px;
     margin: 50px auto;
