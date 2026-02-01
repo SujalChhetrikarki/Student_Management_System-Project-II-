@@ -27,7 +27,6 @@ $stmt->bind_param("ii", $teacher_id, $class_id);
 $stmt->execute();
 $subjects = $stmt->get_result();
 $stmt->close();
-
 // Default subject (first one assigned)
 $subject_id = $subjects->fetch_assoc()['subject_id'] ?? null;
 $subjects->data_seek(0); // reset pointer
