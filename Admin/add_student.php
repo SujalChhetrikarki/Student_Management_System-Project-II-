@@ -7,277 +7,316 @@ if (!isset($_SESSION['admin_id'])) {
 
 include '../Database/db_connect.php';
 
-// Fetch all classes from DB
+/* =========================
+   FETCH CLASSES
+========================= */
+$classes_result = $conn->query("SELECT class_id, class_name FROM classes ORDER BY class_name");
 $classes = [];
-$sql = "SELECT class_id, class_name FROM classes ORDER BY class_id ASC";
-$result = $conn->query($sql);
-if ($result && $result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+if ($classes_result && $classes_result->num_rows > 0) {
+    while($row = $classes_result->fetch_assoc()) {
         $classes[] = $row;
     }
 }
 
-// Fetch students with class info
-$students = [];
-$sql = "
+/* =========================
+   FETCH STUDENTS
+========================= */
+$students_result = $conn->query("
     SELECT s.student_id, s.name, s.email, s.gender, s.date_of_birth, c.class_name
     FROM students s
     JOIN classes c ON s.class_id = c.class_id
     ORDER BY c.class_name, s.name
-";
-$result = $conn->query($sql);
-if ($result && $result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+");
+$students = [];
+if ($students_result && $students_result->num_rows > 0) {
+    while($row = $students_result->fetch_assoc()) {
         $students[] = $row;
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Student</title>
-    <style>
-        body {font-family: Arial, sans-serif; background:#f1f1f1; margin:0; padding:0;}
-#header {
-    position: fixed;
-    top: 0;
-    left: 220px;   /* if using sidebar */
-    right: 0;
-    height: 50px;
-    background: #00bfff;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 16px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 100;
+<meta charset="UTF-8">
+<title>Manage Students</title>
+<style>
+:root{
+  --sidebar-width: 240px;
+  --primary: #2563eb;
+  --dark: #0f172a;
+  --bg: #f1f5f9;
+  --card: #ffffff;
 }
 
-        .container {
-    max-width: 650px;
-    width: 100%;
-    background: #fff;
-    padding: 25px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    margin: 60px auto 40px auto; /* top, horizontal center, bottom */
-}
-        h2 {text-align:center; margin-bottom:20px;}
-        input, select {width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:5px;}
-        button {padding:10px 20px; background:#00bfff; color:#fff; border:none; border-radius:5px; cursor:pointer;}
-        button:hover {background:#0056b3;}
-        .msg {text-align:center; margin-bottom:15px;}
-        .error {color:red;}
-        .success {color:green;}
-        a {display:inline-block; margin-top:10px; text-decoration:none; color:#007bff;}
-            /* Sidebar */
-    .sidebar {
-      width: 220px;
-      background: #111;
-      color: #fff;
-      height: 100vh;
-      position: fixed;
-      left: 0;
-      top: 0;
-      padding-top: 20px;
-    }
-    .sidebar h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 20px;
-      color: #00bfff;
-    }
-    .sidebar a {
-      display: block;
-      padding: 12px 20px;
-      margin: 8px 15px;
-      background: #222;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: 0.3s;
-    }
-    .sidebar a:hover {
-      background: #00bfff;
-      color: #111;
-    }
-    .sidebar a.logout {
-      background: #dc3545;
-    }
-    .sidebar a.logout:hover {
-      background: #ff4444;
-      color: #fff;
-    }
-
-/* Student List Box */
-.student-box {
-    max-width: 1000px;
-    background: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    margin: 30px auto 60px auto;
+/* ===== Base ===== */
+body{
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: #1f2937;
+  display: flex;
 }
 
-.student-box h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+/* ===== Sidebar ===== */
+.sidebar{
+  width: var(--sidebar-width);
+  background: var(--dark);
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Grid */
-.student-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 20px;
+.sidebar h2{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #60a5fa;
 }
 
-.student-card {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 15px;
-    border-left: 5px solid #00bfff;
-    transition: 0.3s;
+.sidebar a{
+  display: block;
+  padding: 12px 18px;
+  margin: 8px 15px;
+  color: #e5e7eb;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.3s;
 }
 
-.student-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+.sidebar a:hover{
+  background: #1e293b;
 }
 
-.student-card h4 {
-    margin: 0 0 8px;
-    color: #00bfff;
+.sidebar a.logout{
+  background: #7f1d1d;
 }
 
-.student-card p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #333;
+.sidebar a.logout:hover{
+  background: #dc2626;
 }
 
-.no-student {
-    text-align: center;
-    color: #999;
-    font-size: 16px;
+/* ===== Header ===== */
+.header{
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: 80px;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  z-index: 10;
 }
 
-    </style>
+/* ===== Main ===== */
+.main{
+  margin-left: var(--sidebar-width);
+  padding: 100px 30px 30px 30px;
+  width: calc(100% - var(--sidebar-width));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== Container ===== */
+.container{
+  width: 700px;
+  background: var(--card);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+  margin-bottom: 40px;
+}
+
+/* ===== Forms ===== */
+form label{
+  font-weight: 500;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+form input, form select{
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+form button{
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form button:hover{
+  background: #1d4ed8;
+}
+
+/* ===== Alerts ===== */
+.success{ color: green; margin-bottom: 10px; font-weight: 500;}
+.error{ color: red; margin-bottom: 10px; font-weight: 500; }
+
+/* ===== Student Grid ===== */
+.student-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.student-card{
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  border-left: 5px solid var(--primary);
+  transition: 0.3s;
+}
+
+.student-card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.student-card h4{
+  margin: 0 0 8px;
+  color: var(--primary);
+}
+
+.student-card p{
+  margin: 4px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.empty{
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+</style>
 </head>
-
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
+
+<div class="sidebar">
     <h2>Admin Panel</h2>
-    <a href="index.php">🏠 Home</a>
-    <a href="./Manage_student/Managestudent.php">📚 Manage Students</a>
-    <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Manage Teachers</a>
-    <a href="./classes/classes.php">🏫 Manage Classes</a>
-    <a href="./subjects.php">📖 Manage Subjects</a>
+    <a href="index.php">🏠 Home</a> 
+    <a href="./Manage_student/Managestudent.php">📚 Manage Students</a> 
+    <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Manage Teachers</a> 
+    <a href="./classes/classes.php">🏫 Manage Classes</a> 
+    <a href="./subjects.php">📖 Manage Subjects</a> 
     <a href="./Managebook.php">📚 Manage Books</a>
-    <a href="add_student.php">➕ Add Student</a>
-    <a href="./add_teacher.php">➕ Add Teacher</a>
-    <a href="./Add_exam/add_exam.php">➕ Add Exam</a>
-    <a href="./admin_approve_results.php">✅ Approve Results</a>
+    <a href="./add_student.php">➕ Add Student</a> 
+    <a href="./add_teacher.php">➕ Add Teacher</a> 
+    <a href="./Add_exam/add_exam.php">➕ Add Exam</a> 
+    <a href="./admin_approve_results.php">✅ Approve Results</a> 
     <a href="./logout.php" class="logout">🚪 Logout</a>
-  </div>
-
-    <div id="header">
-        Admin Panel - Add Student
-    </div>
-
-    <div class="container">
-        <h2>Register New Student</h2>
-
-        <!-- Success/Error Messages -->
-        <?php if (isset($_SESSION['error'])): ?>
-            <p class="msg error"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-        <?php endif; ?>
-        <?php if (isset($_SESSION['success'])): ?>
-            <p class="msg success"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></p>
-        <?php endif; ?>
-
-        <form action="add_student_process.php" method="POST">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            
-            <label for="class_id">Class:</label>
-            <select name="class_id" required>
-                <option value="">-- Select Class --</option>
-                <?php foreach ($classes as $class): ?>
-                    <option value="<?php echo $class['class_id']; ?>">
-                        <?php echo $class['class_name']; ?> (ID: <?php echo $class['class_id']; ?>)
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <label for="date_of_birth">Date of Birth:</label>
-            <input type="date" name="date_of_birth" required>
-
-            <label for="gender">Gender:</label>
-            <select name="gender" required>
-                <option value="">-- Select Gender --</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <button type="submit">Add Student</button>
-        </form>
-
-        <a href="students.php">⬅ Back to Manage Students</a>
-    </div>
-    
 </div>
+
+<div class="header">📚 Manage Students</div>
+
+<div class="main">
+
+<!-- Add Student Form -->
+<div class="container">
+<h2>Register New Student</h2>
+
+<?php if(isset($_SESSION['success'])): ?>
+<p class="success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></p>
+<?php endif; ?>
+
+<?php if(isset($_SESSION['error'])): ?>
+<p class="error"><?= $_SESSION['error']; unset($_SESSION['error']); ?></p>
+<?php endif; ?>
+
+<form action="add_student_process.php" method="POST">
+    <label>Full Name</label>
+    <input type="text" name="name" placeholder="Full Name" required>
+
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Email" required>
+
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <label>Class</label>
+    <select name="class_id" required>
+        <option value="">Select Class</option>
+        <?php foreach($classes as $c): ?>
+            <option value="<?= $c['class_id']; ?>"><?= htmlspecialchars($c['class_name']); ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <label>Date of Birth</label>
+    <input type="date" name="date_of_birth" required>
+
+    <label>Gender</label>
+    <select name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <button type="submit">Add Student</button>
+</form>
+</div>
+
 <!-- Student Viewer -->
-<div class="student-box">
+<div class="container">
 <h3>View Students</h3>
 
 <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;">
     <select id="classFilter">
         <option value="">-- Select Class --</option>
-        <?php foreach ($classes as $class): ?>
-            <option value="<?= htmlspecialchars($class['class_name']) ?>">
-                <?= htmlspecialchars($class['class_name']) ?>
+        <?php foreach($classes as $class): ?>
+            <option value="<?= htmlspecialchars($class['class_name']); ?>">
+                <?= htmlspecialchars($class['class_name']); ?>
             </option>
         <?php endforeach; ?>
     </select>
     <button onclick="showStudents()">Show Students</button>
 </div>
 
-<div id="studentContainer" style="display:none;">
-    <div class="student-grid">
-        <?php foreach ($students as $student): ?>
-            <div class="student-card" data-class="<?= htmlspecialchars($student['class_name']) ?>">
-                <h4><?= htmlspecialchars($student['name']) ?></h4>
-                <p><b>ID:</b> <?= $student['student_id'] ?></p>
-                <p><b>Class:</b> <?= htmlspecialchars($student['class_name']) ?></p>
-                <p><b>Email:</b> <?= htmlspecialchars($student['email']) ?></p>
-                <p><b>Gender:</b> <?= $student['gender'] ?></p>
-                <p><b>DOB:</b> <?= $student['date_of_birth'] ?></p>
+<div id="studentContainer" style="display:<?= count($students) > 0 ? 'grid' : 'none' ?>;" class="student-grid">
+    <?php if(count($students) > 0): ?>
+        <?php foreach($students as $student): ?>
+            <div class="student-card" data-class="<?= htmlspecialchars($student['class_name']); ?>">
+                <h4><?= htmlspecialchars($student['name']); ?></h4>
+                <p><b>ID:</b> <?= $student['student_id']; ?></p>
+                <p><b>Class:</b> <?= htmlspecialchars($student['class_name']); ?></p>
+                <p><b>Email:</b> <?= htmlspecialchars($student['email']); ?></p>
+                <p><b>Gender:</b> <?= $student['gender']; ?></p>
+                <p><b>DOB:</b> <?= $student['date_of_birth']; ?></p>
             </div>
         <?php endforeach; ?>
-    </div>
+    <?php else: ?>
+        <p class="empty">No students found</p>
+    <?php endif; ?>
 </div>
 </div>
 
 <script>
 function showStudents(){
-    const selectedClass=document.getElementById("classFilter").value;
-    const container=document.getElementById("studentContainer");
-    const cards=document.querySelectorAll(".student-card");
+    const selectedClass = document.getElementById("classFilter").value;
+    const cards = document.querySelectorAll(".student-card");
 
-    container.style.display="block";
-
-    cards.forEach(card=>{
-        card.style.display=
-            (selectedClass==="" || card.dataset.class===selectedClass)
-            ? "block" : "none";
+    cards.forEach(card => {
+        card.style.display = (selectedClass === "" || card.dataset.class === selectedClass) ? "block" : "none";
     });
 }
 </script>

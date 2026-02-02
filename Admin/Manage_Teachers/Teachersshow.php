@@ -19,59 +19,182 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <title>Manage Teachers</title>
-    <style>
-        body { font-family: Arial; background: #f1f1f1; margin: 0; padding: 0; }
+<style>
+:root{
+  --sidebar-width: 240px;
+  --primary: #2563eb;
+  --dark: #0f172a;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+}
 
-        /* Sidebar */
-        .sidebar { 
-            width: 220px; 
-            background: #111; 
-            color: #fff; 
-            height: 100vh; 
-            position: fixed; 
-            left: 0; 
-            top: 0; 
-            padding-top: 20px; 
-        }
-        .sidebar h2 { 
-            text-align: center; 
-            margin-bottom: 30px; 
-            font-size: 20px; 
-            color: #00bfff; 
-        }
-        .sidebar a { 
-            display: block; 
-            padding: 12px 20px; 
-            margin: 8px 15px; 
-            background: #222; 
-            color: #fff; 
-            text-decoration: none; 
-            border-radius: 6px; 
-            transition: 0.3s; 
-        }
-        .sidebar a:hover { background: #00bfff; color: #111; }
-        .sidebar a.logout { background: #dc3545; }
-        .sidebar a.logout:hover { background: #ff4444; color: #fff; }
+/* ===== Base ===== */
+body{
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: #1f2937;
+}
 
-        /* Content */
-        .container { 
-            margin-left: 240px; 
-            max-width: calc(100% - 240px); 
-            padding: 20px; 
-        }
+/* ===== Sidebar ===== */
+.sidebar{
+  width: var(--sidebar-width);
+  background: var(--dark);
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+}
 
-        h1 { margin-top: 0; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-        th { background: #00bfff; color: #fff; }
-        a.btn { padding: 5px 10px; background: #00bfff; color: #fff; text-decoration: none; border-radius: 5px; }
-        a.btn:hover { background: #0056b3; }
-        a.action-btn { padding: 6px 12px; border-radius:5px; text-decoration:none; margin-right:5px; }
-        a.edit-btn { background: #ffc107; color: #111; }
-        a.edit-btn:hover { background: #e0a800; }
-        a.delete-btn { background: #dc3545; color: #fff; }
-        a.delete-btn:hover { background: #c82333; }
-    </style>
+.sidebar h2{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #60a5fa;
+}
+
+.sidebar a{
+  display: block;
+  padding: 12px 18px;
+  margin: 8px 15px;
+  color: #e5e7eb;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover{
+  background: #1e293b;
+}
+
+.sidebar a.logout{
+  background: #7f1d1d;
+}
+
+.sidebar a.logout:hover{
+  background: #dc2626;
+}
+
+/* ===== Main Container ===== */
+.container{
+  margin-left: var(--sidebar-width);
+  padding: 30px;
+  max-width: calc(100% - var(--sidebar-width));
+}
+
+/* ===== Header ===== */
+.page-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.page-header h1{
+  margin: 0;
+  font-size: 24px;
+}
+
+.page-header a{
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.page-header a:hover{
+  background: #1d4ed8;
+}
+
+/* ===== Card ===== */
+.card{
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+/* ===== Table ===== */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td{
+  padding: 14px 16px;
+  text-align: left;
+}
+
+th{
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+tr{
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover{
+  background: #f8fafc;
+}
+
+/* ===== Buttons ===== */
+.action-btn{
+  padding: 7px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.edit-btn{
+  background: #facc15;
+  color: #111;
+}
+
+.edit-btn:hover{
+  background: #eab308;
+}
+
+.delete-btn{
+  background: #ef4444;
+  color: #fff;
+}
+
+.delete-btn:hover{
+  background: #dc2626;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px){
+  .sidebar{
+    width: 200px;
+  }
+  .container{
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 700px){
+  .sidebar{
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .container{
+    margin-left: 0;
+  }
+}
+</style>
+
 </head>
 <body>
 

@@ -36,23 +36,173 @@ if (!$result) {
     <meta charset="UTF-8">
     <title>Manage Classes</title>
     <link rel="stylesheet" href="classes.css">
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f4f6f9; display: flex; }
-        .sidebar { width: 220px; background: #111; color: #fff; height: 100vh; position: fixed; left: 0; top: 0; padding-top: 20px; }
-        .sidebar h2 { text-align: center; margin-bottom: 30px; font-size: 20px; color: #00bfff; }
-        .sidebar a { display: block; padding: 12px 20px; margin: 8px 15px; background: #222; color: #fff; text-decoration: none; border-radius: 6px; transition: 0.3s; }
-        .sidebar a:hover { background: #00bfff; color: #111; }
-        .sidebar a.logout { background: #dc3545; }
-        .sidebar a.logout:hover { background: #ff4444; color: #fff; }
-        .container { margin-left: 240px; padding: 20px; flex: 1; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; border-radius: 8px; overflow: hidden; }
-        table th, table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        table th { background: #00bfff; }
-        .btn, .btn-sm { text-decoration: none; padding: 6px 12px; border-radius: 4px; background: #00bfff; color: white; }
-        .btn:hover, .btn-sm:hover { background: #2980b9; }
-        .btn-sm.danger { background: #e74c3c; }
-        .btn-sm.danger:hover { background: #c0392b; }
-    </style>
+<style>
+:root{
+  --sidebar-width: 240px;
+  --primary: #2563eb;
+  --dark: #0f172a;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+}
+
+/* ===== Base ===== */
+body{
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: #1f2937;
+}
+
+/* ===== Sidebar ===== */
+.sidebar{
+  width: var(--sidebar-width);
+  background: var(--dark);
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+}
+
+.sidebar h2{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #60a5fa;
+}
+
+.sidebar a{
+  display: block;
+  padding: 12px 18px;
+  margin: 8px 15px;
+  color: #e5e7eb;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover{
+  background: #1e293b;
+}
+
+.sidebar a.logout{
+  background: #7f1d1d;
+}
+
+.sidebar a.logout:hover{
+  background: #dc2626;
+}
+
+/* ===== Main Container ===== */
+.container{
+  margin-left: var(--sidebar-width);
+  padding: 30px;
+  max-width: calc(100% - var(--sidebar-width));
+}
+
+/* ===== Page Header ===== */
+.page-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.page-header h1{
+  margin: 0;
+  font-size: 24px;
+}
+
+.page-header a{
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.page-header a:hover{
+  background: #1d4ed8;
+}
+
+/* ===== Card ===== */
+.card{
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+/* ===== Table ===== */
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td{
+  padding: 14px 16px;
+  text-align: center;
+}
+
+th{
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+tr{
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover{
+  background: #f8fafc;
+}
+
+/* ===== Buttons ===== */
+.btn,
+.btn-sm{
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.btn:hover,
+.btn-sm:hover{
+  background: #1d4ed8;
+}
+
+.btn-sm.danger{
+  background: #ef4444;
+}
+
+.btn-sm.danger:hover{
+  background: #dc2626;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px){
+  .sidebar{ width: 200px; }
+  .container{ margin-left: 200px; }
+}
+
+@media (max-width: 700px){
+  .sidebar{
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .container{
+    margin-left: 0;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -77,7 +227,7 @@ if (!$result) {
     <h1>📚 Manage Classes</h1>
 
     <a class="btn" href="add_class.php">➕ Add New Class</a>
-
+<div class="card">
     <table>
         <thead>
             <tr>
@@ -110,6 +260,7 @@ if (!$result) {
         <?php endif; ?>
         </tbody>
     </table>
+    
 </div>
 </body>
 </html>

@@ -36,30 +36,209 @@ if (!$students) {
     <meta charset="UTF-8">
     <title>Manage Students</title>
     <link rel="stylesheet" href="managestudent.css">
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f4f6f9; display: flex; }
-        .sidebar { width: 220px; background: #111; color: #fff; height: 100vh; position: fixed; left: 0; top: 0; padding-top: 20px; }
-        .sidebar h2 { text-align: center; margin-bottom: 30px; font-size: 20px; color: #00bfff; }
-        .sidebar a { display: block; padding: 12px 20px; margin: 8px 15px; background: #222; color: #fff; text-decoration: none; border-radius: 6px; transition: 0.3s; }
-        .sidebar a:hover { background: #00bfff; color: #111; }
-        .sidebar a.logout { background: #dc3545; }
-        .sidebar a.logout:hover { background: #ff4444; color: #fff; }
-        .main { margin-left: 220px; padding: 20px; flex: 1; }
-        .header { background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .header h1 { margin: 0; font-size: 22px; color: #333; flex: 1 0 100%; margin-bottom:10px; }
-        .search-box input { padding:8px; border-radius:6px; border:1px solid #ccc; }
-        .search-box button, .search-box a { padding:8px 12px; border:none; background:#00bfff; color:white; border-radius:6px; text-decoration:none; cursor: pointer; }
-        .search-box a { background:#6c757d; }
-        table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; }
-        th, td { padding: 12px; border: 1px solid #ddd; text-align: center; }
-        th { background: #00bfff; color: white; }
-        tr:hover { background: #f1f1f1; }
-        .btn { padding: 6px 10px; border-radius: 6px; text-decoration: none; }
-        .btn.edit { background: #ffc107; color: #111; }
-        .btn.delete { background: #dc3545; color: #fff; }
-        .btn.edit:hover { background: #e0a800; }
-        .btn.delete:hover { background: #c82333; }
-    </style>
+<style>
+:root{
+  --primary:#2563eb;
+  --secondary:#1e40af;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+  --sidebar:#0f172a;
+  --sidebar-hover:#1e293b;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --danger:#dc2626;
+  --warning:#f59e0b;
+  --success:#16a34a;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:"Segoe UI", system-ui, Arial, sans-serif;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  display:flex;
+}
+
+/* ===== Sidebar ===== */
+.sidebar{
+  width:240px;
+  background:var(--sidebar);
+  color:#fff;
+  height:100vh;
+  position:fixed;
+  padding:20px 15px;
+}
+
+.sidebar h2{
+  text-align:center;
+  margin-bottom:30px;
+  color:#60a5fa;
+  font-size:20px;
+}
+
+.sidebar a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 16px;
+  margin:8px 10px;
+  background:transparent;
+  color:#e5e7eb;
+  text-decoration:none;
+  border-radius:10px;
+  transition:.3s;
+}
+
+.sidebar a:hover{
+  background:var(--sidebar-hover);
+  color:#fff;
+}
+
+.sidebar a.logout{
+  background:#7f1d1d;
+}
+
+.sidebar a.logout:hover{
+  background:var(--danger);
+}
+
+/* ===== Main ===== */
+.main{
+  margin-left:240px;
+  padding:25px;
+  width:100%;
+}
+
+/* ===== Header ===== */
+.header{
+  background:var(--card);
+  padding:20px 25px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,.06);
+  margin-bottom:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.header h1{
+  font-size:22px;
+  color:var(--text);
+  margin:0 0 10px 0;
+}
+
+/* ===== Search ===== */
+.search-box{
+  display:flex;
+  gap:10px;
+}
+
+.search-box input{
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid #cbd5f5;
+  min-width:220px;
+}
+
+.search-box button{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.search-box button:hover{
+  background:var(--secondary);
+}
+
+.search-box a{
+  background:#64748b;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:10px;
+  text-decoration:none;
+}
+
+/* ===== Table ===== */
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  background:var(--card);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 15px 30px rgba(0,0,0,.06);
+}
+
+th,td{
+  padding:14px 16px;
+  text-align:center;
+}
+
+th{
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
+}
+
+tr:nth-child(even){
+  background:#f8fafc;
+}
+
+tr:hover{
+  background:#e0f2fe;
+}
+
+/* ===== Buttons ===== */
+.btn{
+  padding:6px 12px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:14px;
+  display:inline-block;
+}
+
+.btn.edit{
+  background:var(--warning);
+  color:#111;
+}
+
+.btn.edit:hover{
+  background:#eab308;
+}
+
+.btn.delete{
+  background:var(--danger);
+  color:#fff;
+}
+
+.btn.delete:hover{
+  background:#b91c1c;
+}
+
+/* ===== Performance Badge ===== */
+td:nth-child(5){
+  font-weight:600;
+}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){
+  .sidebar{width:200px;}
+  .main{margin-left:200px;}
+}
+
+@media(max-width:700px){
+  .sidebar{display:none;}
+  .main{margin-left:0;}
+}
+</style>
+
 </head>
 <body>
 

@@ -10,11 +10,7 @@ include '../Database/db_connect.php';
 /* =========================
    FETCH CLASSES
 ========================= */
-$classes = $conn->query("
-    SELECT class_id, class_name
-    FROM classes
-    ORDER BY class_name
-");
+$classes = $conn->query("SELECT class_id, class_name FROM classes ORDER BY class_name");
 
 /* =========================
    FETCH SUBJECTS BY CLASS
@@ -36,120 +32,140 @@ if (isset($_GET['class_id']) && $_GET['class_id'] !== '') {
     $subjects = $stmt->get_result();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Class Wise Subjects</title>
-
 <style>
-/* ===== Layout ===== */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    display: flex;
+:root{
+  --sidebar-width: 240px;
+  --primary: #2563eb;
+  --dark: #0f172a;
+  --bg: #f4f6f9;
+  --card: #fff;
+}
+
+/* ===== Base ===== */
+body{
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  display: flex;
 }
 
 /* ===== Sidebar ===== */
-.sidebar {
-    width: 220px;
-    background: #111;
-    color: #fff;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding-top: 20px;
+.sidebar{
+  width: var(--sidebar-width);
+  background: var(--dark);
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 20px;
-    color: #00bfff;
+
+.sidebar h2{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #60a5fa;
 }
-.sidebar a {
-    display: block;
-    padding: 12px 20px;
-    margin: 8px 15px;
-    background: #222;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: 0.3s;
+
+.sidebar a{
+  display: block;
+  padding: 12px 18px;
+  margin: 8px 15px;
+  color: #e5e7eb;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.3s;
 }
-.sidebar a:hover {
-    background: #00bfff;
-    color: #111;
+
+.sidebar a:hover{
+  background: #1e293b;
 }
-.sidebar a.logout {
-    background: #dc3545;
+
+.sidebar a.logout{
+  background: #7f1d1d;
+}
+
+.sidebar a.logout:hover{
+  background: #dc2626;
 }
 
 /* ===== Main ===== */
-.main {
-    margin-left: 220px;
-    padding: 20px;
-    flex: 1;
+.main{
+  margin-left: var(--sidebar-width);
+  padding: 100px 30px 30px;
+  width: calc(100% - var(--sidebar-width));
 }
 
-.header {
-    background: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 22px;
-    color: #333;
+/* ===== Header ===== */
+.header{
+  background: var(--card);
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 /* ===== Card ===== */
-.card {
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+.card{
+  background: var(--card);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
 }
 
 /* ===== Form ===== */
-select {
-    width: 100%;
-    padding: 10px;
-    margin: 15px 0 25px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+form label{
+  font-weight: 500;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+select{
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
 }
 
 /* ===== Table ===== */
-table {
-    width: 100%;
-    border-collapse: collapse;
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
 
-th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
+th, td{
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-th {
-    background: #00bfff;
-    color: #fff;
+th{
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
 }
 
-tr:hover {
-    background: #f1f1f1;
+tr:hover{
+  background: #f1f5f9;
 }
 
-.empty {
-    text-align: center;
-    padding: 20px;
-    color: #777;
-    font-size: 15px;
+.empty{
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-size: 15px;
 }
 </style>
 </head>
@@ -176,7 +192,7 @@ tr:hover {
 <div class="main">
 
     <div class="header">
-        <h1>📖 Class-wise Subjects</h1>
+        📖 Class-wise Subjects
     </div>
 
     <div class="card">
