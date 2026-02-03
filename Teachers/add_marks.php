@@ -117,31 +117,182 @@ $stmt->close();
 <title>Add/Update Marks - <?= htmlspecialchars($exam['subject_name']) ?></title>
 
 <style>
-body { font-family: "Segoe UI", Arial; background: #f4f6fa; margin: 0; padding: 0; color: #333; }
-header { background: #0066cc; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
-header h1 { margin: 0; font-size: 24px; }
-header a.logout-btn { background: #dc3545; color: white; padding: 8px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; }
-header a.logout-btn:hover { background: #b02a37; }
-.container { max-width: 1100px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-h2 { color: #0066cc; }
-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-th { background: #007bff; color: #fff; }
-input[type="number"] { width: 60px; padding: 5px; }
-.btn { background: #28a745; color: #fff; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
-.btn:hover { background: #218838; }
-.success { color: green; margin-top: 10px; font-weight: bold; }
-.back-btn { display: inline-block; background: #007bff; color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; margin-bottom: 15px; }
-.back-btn:hover { background: #0056b3; }
+body { 
+    font-family: "Segoe UI", Arial; 
+    background: #f4f6fa; 
+    margin: 0; 
+    padding: 0; 
+    color: #333; 
+    display: flex;
+}
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #0066cc;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #e5e7eb;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+.sidebar a:hover {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+}
+.sidebar a.logout {
+    margin-top: auto;
+    background: #7f1d1d;
+}
+.sidebar a.logout:hover {
+    background: #dc2626;
+}
+.container { 
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 30px; 
+    background: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+}
+h2 { 
+    color: #0066cc; 
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #0066cc;
+}
+p {
+    color: #666;
+    margin-bottom: 20px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #0066cc;
+}
+table { 
+    width: 100%; 
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 25px; 
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+th, td { 
+    border: none;
+    padding: 14px 18px; 
+    text-align: center; 
+}
+th { 
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: #fff; 
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+tr:nth-child(even) {
+    background: #f8f9fa;
+}
+tr:hover {
+    background: #e6f0ff;
+    transition: background 0.2s;
+}
+input[type="number"] { 
+    width: 100px; 
+    padding: 10px 12px; 
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+input[type="number"]:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+}
+.btn { 
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: #fff; 
+    padding: 12px 24px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(40,167,69,0.3);
+    margin-top: 20px;
+}
+.btn:hover { 
+    background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40,167,69,0.4);
+}
+.success { 
+    color: #28a745; 
+    margin-top: 15px; 
+    font-weight: 600;
+    padding: 12px 20px;
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    border-radius: 8px;
+}
+.back-btn { 
+    display: inline-block; 
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white; 
+    padding: 10px 18px; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    margin-bottom: 20px; 
+    font-weight: 500;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,123,255,0.3);
+}
+.back-btn:hover { 
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.4);
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>Add / Update Marks</h1>
-<a href="logout.php" class="logout-btn">Logout</a>
-</header>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>👨‍🏫 Teacher Panel</h2>
+    <a href="teacher_dashboard.php">🏠 Dashboard</a>
+    <a href="view_students.php">👥 View Students</a>
+    <a href="manage_attendance.php">📅 Manage Attendance</a>
+    <a href="manage_marks.php">📊 Manage Marks</a>
+    <a href="change_password.php">🔑 Change Password</a>
+    <a href="logout.php" class="logout">🚪 Logout</a>
+</div>
 
 <div class="container">
 <a class="back-btn" href="manage_marks.php?class_id=<?= $exam['class_id'] ?>&subject_id=<?= $exam['subject_id'] ?>">⬅ Back to Results</a>

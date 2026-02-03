@@ -63,104 +63,181 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
-}
-header {
-    background: #0066cc;
-    color: white;
-    padding: 15px 25px;
     display: flex;
-    justify-content: space-between;
+}
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #0066cc;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+.sidebar a {
+    display: flex;
     align-items: center;
-}
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-.logout-btn {
-    background: #dc3545;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 6px;
+    gap: 10px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
     text-decoration: none;
-    font-weight: bold;
+    color: #e5e7eb;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+.sidebar a:hover {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+}
+.sidebar a.logout {
+    margin-top: auto;
+    background: #7f1d1d;
+}
+.sidebar a.logout:hover {
+    background: #dc2626;
 }
 .container {
-    max-width: 1100px;
-    margin: 30px auto;
-    background: white;
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 30px;
 }
 .section {
     margin-bottom: 30px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .section h2 {
-    border-bottom: 2px solid #0066cc;
-    padding-bottom: 6px;
-    margin-bottom: 15px;
+    border-bottom: 3px solid #0066cc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
     color: #0066cc;
+    font-size: 22px;
 }
 .profile-box {
-    background: #eef4ff;
-    padding: 15px 20px;
-    border-radius: 6px;
-    line-height: 1.6;
+    background: linear-gradient(135deg, #eef4ff 0%, #e0f2fe 100%);
+    padding: 20px 25px;
+    border-radius: 10px;
+    line-height: 1.8;
+    border-left: 4px solid #0066cc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.profile-box p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+.profile-box strong {
+    color: #0066cc;
+    font-weight: 600;
 }
 .notice {
-    background: #fff8e1;
-    border-left: 5px solid #ffcc00;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+    border-left: 5px solid #ffc107;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.notice:hover {
+    transform: translateX(5px);
 }
 .notice h4 {
-    margin: 0;
-    font-size: 16px;
+    margin: 0 0 8px 0;
+    font-size: 17px;
+    color: #856404;
+}
+.notice p {
+    margin: 5px 0;
+    color: #6c5700;
+    line-height: 1.6;
 }
 .notice small {
-    color: #777;
+    color: #856404;
+    font-size: 13px;
 }
 .table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 15px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .table th, .table td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    border: none;
+    padding: 14px 16px;
     text-align: left;
 }
 .table th {
-    background: #f1f1f1;
-    color: #333;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+.table tr:nth-child(even) {
+    background: #f8f9fa;
 }
 .table tr:hover {
-    background: #f9f9f9;
+    background: #e6f0ff;
+    transition: background 0.2s;
 }
 .btn {
-    background: #007bff;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
-    padding: 6px 10px;
+    padding: 8px 16px;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,123,255,0.3);
 }
 .btn:hover {
-    background: #0056b3;
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.4);
 }
 .status {
-    font-weight: bold;
-    color: green;
+    font-weight: 600;
+    color: #28a745;
+    padding: 4px 10px;
+    background: #d4edda;
+    border-radius: 12px;
+    font-size: 12px;
 }
 </style>
 </head>
 <body>
 
-<header>
-    <h1>Teacher Dashboard</h1>
-    <a href="logout.php" class="logout-btn">Logout</a>
-</header>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>👨‍🏫 Teacher Panel</h2>
+    <a href="teacher_dashboard.php">🏠 Dashboard</a>
+    <a href="view_students.php">👥 View Students</a>
+    <a href="manage_attendance.php">📅 Manage Attendance</a>
+    <a href="manage_marks.php">📊 Manage Marks</a>
+    <a href="change_password.php">🔑 Change Password</a>
+    <a href="logout.php" class="logout">🚪 Logout</a>
+</div>
 
 <div class="container">
 

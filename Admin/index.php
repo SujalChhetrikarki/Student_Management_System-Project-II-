@@ -80,48 +80,68 @@ body{
   background:var(--bg);
   display:flex;
 }
-
-/* ===== Sidebar ===== */
+/* ===== ESSENTIAL SIDEBAR CSS ===== */
 .sidebar{
-  width:240px;
-  background:var(--sidebar);
-  color:#fff;
-  min-height:100vh;
+  width:240px;          /* sidebar width */
+  height:100vh;         /* full screen height */
+  position:fixed;       /* fixed on left */
+  top:0;
+  left:0;
+
+  background:#0f172a;   /* sidebar color */
+  color:#ffffff;
+
+  display:flex;         /* for vertical layout */
+  flex-direction:column;
+
   padding:20px 15px;
-  position:fixed;
+  z-index:1000;         /* stay above main content */
 }
 
+/* Push main content */
+.main{
+  margin-left:240px;    /* SAME as sidebar width */
+  padding:25px;
+}
+
+/* Sidebar title */
 .sidebar h2{
   text-align:center;
   margin-bottom:30px;
-  color:#60a5fa;
   font-size:20px;
+  color:#60a5fa;
 }
 
+/* Sidebar links */
 .sidebar a{
   display:flex;
   align-items:center;
   gap:10px;
+
   padding:12px 15px;
   margin-bottom:10px;
+
   text-decoration:none;
   color:#e5e7eb;
   border-radius:10px;
-  transition:.3s;
 }
 
+/* Hover effect */
 .sidebar a:hover{
-  background:var(--sidebar-hover);
-  color:#fff;
+  background:#1e293b;
+  color:#ffffff;
 }
 
+/* Logout at bottom */
 .sidebar a.logout{
+  margin-top:auto;      /* IMPORTANT */
   background:#7f1d1d;
 }
 
 .sidebar a.logout:hover{
-  background:var(--danger);
+  background:#dc2626;
 }
+
 
 /* ===== Main ===== */
 .main{

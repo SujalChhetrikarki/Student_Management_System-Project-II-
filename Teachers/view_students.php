@@ -36,76 +36,131 @@ $students = $stmtStudents->get_result();
             background: #f4f6f9;
             margin: 0;
             padding: 0;
+            display: flex;
         }
-        .header {
-            background: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: left;
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #0066cc;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 15px;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 20px;
+            color: #fff;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #e5e7eb;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.2);
+            color: #ffffff;
+        }
+        .sidebar a.logout {
+            margin-top: auto;
+            background: #7f1d1d;
+        }
+        .sidebar a.logout:hover {
+            background: #dc2626;
         }
         .container {
-            max-width: 800px;
-            margin: 30px auto;
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            padding: 30px;
             background: #fff;
-            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         h2 {
-            color: #34495e;
-            margin-bottom: 15px;
+            color: #0066cc;
+            margin-bottom: 25px;
+            font-size: 24px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #0066cc;
         }
         ul {
             list-style: none;
             padding: 0;
         }
         ul li {
-            background: #ecf0f1;
-            padding: 12px 15px;
-            margin: 8px 0;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
             font-size: 15px;
-            transition: 0.3s;
+            transition: all 0.3s;
+            border-left: 4px solid #0066cc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         ul li:hover {
-            background: #dcdde1;
+            background: linear-gradient(135deg, #e6f0ff 0%, #d0e7ff 100%);
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        ul li small {
+            color: #6c757d;
+            font-size: 13px;
+            margin-left: 10px;
         }
         .btn {
             display: inline-block;
-            margin-top: 15px;
-            padding: 10px 16px;
-            background: #3498db;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
             color: #fff;
             text-decoration: none;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: 0.3s;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,102,204,0.3);
         }
         .btn:hover {
-            background: #2980b9;
+            background: linear-gradient(135deg, #0052a3 0%, #004085 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,102,204,0.4);
         }
         .empty {
-            color: #7f8c8d;
+            color: #6c757d;
             font-style: italic;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #dee2e6;
         }
-        header { background: #0066cc; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
-header h1 { margin: 0; font-size: 24px; }
-header a.logout-btn { background: #dc3545; color: white; padding: 8px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; }
-header a.logout-btn:hover { background: #b02a37; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Students</h1>
-    <a href="logout.php" class="logout-btn">Logout</a>
-</header>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>👨‍🏫 Teacher Panel</h2>
+    <a href="teacher_dashboard.php">🏠 Dashboard</a>
+    <a href="view_students.php">👥 View Students</a>
+    <a href="manage_attendance.php">📅 Manage Attendance</a>
+    <a href="manage_marks.php">📊 Manage Marks</a>
+    <a href="change_password.php">🔑 Change Password</a>
+    <a href="logout.php" class="logout">🚪 Logout</a>
+</div>
 
     <div class="container">
         <h2>Students in <?= htmlspecialchars($class_name); ?> (ID: <?= htmlspecialchars($class_id); ?>)</h2>
