@@ -1,137 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Teacher Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #6dd5ed;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .login-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #aaa;
-            width: 300px;
-        }
-        .login-box h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .login-box input[type="email"],
-        .login-box input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .login-box button {
-            width: 100%;
-            padding: 10px;
-            background: #28a745;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .login-box button:hover {
-            background: #218838;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Teacher Login | SMS</title>
+
+<style>
+:root{
+  --primary:#2563eb;
+  --secondary:#1e40af;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+}
+
+/* Reset */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", Arial, sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(135deg,#6dd5ed,#2193b0);
+}
+
+/* Header */
+header{
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 50px;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo img{
+  width:48px;
+  height:48px;
+  border-radius:10px;
+}
+
+.logo h1{
+  font-size:18px;
+  font-weight:600;
+}
+
+.logo span{
+  font-size:13px;
+  color:var(--muted);
+}
+
+nav a{
+  margin-left:22px;
+  text-decoration:none;
+  font-weight:500;
+  color:var(--text);
+  position:relative;
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:var(--primary);
+  transition:.3s;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+/* Main */
+main{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:40px 20px;
+}
+
+/* Login Card */
+.login-box{
+  background:var(--card);
+  width:360px;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.18);
+  animation:fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(25px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.login-box h2{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.login-box p{
+  text-align:center;
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+/* Form */
+label{
+  font-size:14px;
+  color:#374151;
+}
+
+input{
+  width:100%;
+  padding:12px 14px;
+  margin-top:6px;
+  margin-bottom:18px;
+  border-radius:10px;
+  border:1px solid #d1d5db;
+  font-size:14px;
+}
+
+input:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#fff;
+  font-size:16px;
+  font-weight:500;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(37,99,235,.4);
+}
+
+/* Footer */
+footer{
+  background:#fff;
+  text-align:center;
+  padding:16px;
+  box-shadow:0 -4px 15px rgba(0,0,0,.05);
+}
+
+footer div:first-child{
+  font-size:14px;
+  color:#555;
+}
+
+footer div:last-child{
+  font-size:13px;
+  color:#888;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  nav{display:none;}
+}
+</style>
 </head>
+
 <body>
 
-<header style="
-    background:#ffffff;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 50px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-">
-    <!-- Logo -->
-    <div style="display:flex; align-items:center; gap:12px;">
-        <img src="../Images/logo.jpg" 
-             alt="Logo"
-             style="
-                width:48px;
-                height:48px;
-                object-fit:cover;
-                border-radius:10px;
-             ">
-        <div>
-            <div style="font-size:18px; font-weight:600; color:#333;">
-                Student Management
-            </div>
-            <div style="font-size:13px; color:#777;">
-                Diversity Academy
-            </div>
-        </div>
+<header>
+  <div class="logo">
+    <img src="../Images/logo.jpg" alt="Logo">
+    <div>
+      <h1>Student Management</h1>
+      <span>Diversity Academy</span>
     </div>
+  </div>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="../index.php" style="margin-left:20px; text-decoration:none; color:#333;">Home</a>
-        <a href="../Students/student.php" style="margin-left:20px; text-decoration:none; color:#333;">Student</a>
-        <a href="../Teachers/teacher.php" style="margin-left:20px; text-decoration:none; color:#333;">Teacher</a>
-        <a href="../Admin/admin.php" style="margin-left:20px; text-decoration:none; color:#333;">Admin</a>
-    </nav>
+  <nav>
+    <a href="../index.php">Home</a>
+    <a href="../Students/student.php">Student</a>
+    <a href="../Teachers/teacher.php">Teacher</a>
+    <a href="../Admin/admin.php">Admin</a>
+  </nav>
 </header>
 
-
 <main>
-    <div class="login-box">
-        <h2>Teacher Login</h2>
+  <div class="login-box">
+    <h2>Teacher Login</h2>
+    <p>Sign in to manage classes and students</p>
 
-        <form action="teacher_login.php" method="post">
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" required>
+    <form action="teacher_login.php" method="post">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="teacher@email.com" required>
 
-            <label for="password">Password :</label>
-            <input type="password" id="password" name="password" required>
+      <label>Password</label>
+      <input type="password" name="password" placeholder="••••••••" required>
 
-            <button type="submit">Login</button>
-        </form>
-    </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
 </main>
 
-<footer style="
-    background:#ffffff;
-    padding:20px 10px;
-    text-align:center;
-    box-shadow:0 -2px 10px rgba(0,0,0,0.05);
-">
-    <div style="font-size:14px; color:#555;">
-        © 2026 Diversity Academy
-    </div>
-    <div style="font-size:13px; color:#888; margin-top:4px;">
-        Student Management System
-    </div>
+<footer>
+  <div>© 2026 Diversity Academy</div>
+  <div>Student Management System</div>
 </footer>
-
-
-<script>
-    fetch("../Header.php")
-        .then(res => res.text())
-        .then(data => document.getElementById("header").innerHTML = data);
-
-    fetch("../Footer.php")
-        .then(res => res.text())
-        .then(data => document.getElementById("footer").innerHTML = data);
-</script>
 
 </body>
 </html>

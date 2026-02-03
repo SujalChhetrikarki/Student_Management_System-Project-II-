@@ -85,30 +85,43 @@ body {
     color: #333;
 }
 .sidebar {
-    width: 220px;
+    width: 240px;
     background: #00bfff;
     height: 100vh;
     position: fixed;
     top: 0; left: 0;
     padding: 20px 15px;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
 }
 .sidebar h2 {
     color: #fff;
     text-align: center;
     margin-bottom: 30px;
+    font-size: 20px;
 }
 .sidebar a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: #fff;
-    padding: 12px;
-    margin: 8px 0;
+    padding: 12px 15px;
+    margin-bottom: 10px;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 10px;
     transition: background 0.3s;
 }
 .sidebar a:hover {
     background: rgba(255,255,255,0.2);
+}
+.sidebar a.logout {
+    margin-top: auto;
+    background: #dc3545;
+}
+.sidebar a.logout:hover {
+    background: #c82333;
 }
 .main {
     margin-left: 240px;
@@ -116,31 +129,51 @@ body {
 }
 .card {
     background: #fff;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 25px;
     margin-bottom: 25px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 .card h2 {
     margin-top: 0;
-    color: #007bff;
-    font-size: 18px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
+    color: #00bfff;
+    font-size: 20px;
+    border-bottom: 3px solid #00bfff;
+    padding-bottom: 12px;
+    font-weight: 600;
 }
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 12px;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 15px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 th, td {
-    padding: 10px;
+    padding: 12px 16px;
     border-bottom: 1px solid #eee;
     text-align: left;
 }
 th {
-    background: #f1f5fb;
-    color: #333;
+    background: linear-gradient(135deg, #00bfff 0%, #0099cc 100%);
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+tr:nth-child(even) {
+    background: #f8f9fa;
+}
+tr:hover {
+    background: #e6f7ff;
+    transition: background 0.2s;
 }
 .chart-container {
     width: 300px;

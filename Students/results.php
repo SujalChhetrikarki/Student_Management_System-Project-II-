@@ -113,7 +113,9 @@ body {
 }
 .report-card {
     max-width: 900px;
-    margin: auto;
+    margin-left: 240px;
+    margin-right: auto;
+    margin-top: 20px;
     background: #fff;
     border: 3px solid #00bfff;
     padding: 40px;
@@ -154,23 +156,39 @@ h2 {
 }
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 th, td {
-    border: 1px solid #333;
-    padding: 12px;
+    border: none;
+    padding: 14px 16px;
     text-align: center;
     font-size: 14px;
 }
 th {
-    background: #00bfff;
+    background: linear-gradient(135deg, #00bfff 0%, #0099cc 100%);
     color: #fff;
     font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+tr:nth-child(even) {
+    background: #f8f9fa;
+}
+tr:hover {
+    background: #e6f7ff;
+    transition: background 0.2s;
 }
 tfoot td {
-    font-weight: bold;
-    background: #ecf0f1;
+    font-weight: 600;
+    background: linear-gradient(135deg, #e6f7ff 0%, #d0e7ff 100%);
+    color: #00bfff;
+    font-size: 16px;
 }
 .footer {
     display: flex;
@@ -189,6 +207,7 @@ tfoot td {
     display: block;
     text-align: center;
     margin: 20px auto;
+    margin-left: 240px;
 }
 .print-btn button {
     background: #00bfff;
@@ -219,30 +238,43 @@ tfoot td {
     }
 }
 .sidebar {
-    width: 220px;
+    width: 240px;
     background: #00bfff;
     height: 100vh;
     position: fixed;
     top: 0; left: 0;
     padding: 20px 15px;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
 }
 .sidebar h2 {
     color: #fff;
     text-align: center;
     margin-bottom: 30px;
+    font-size: 20px;
 }
 .sidebar a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: #fff;
-    padding: 12px;
-    margin: 8px 0;
+    padding: 12px 15px;
+    margin-bottom: 10px;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 10px;
     transition: background 0.3s;
 }
 .sidebar a:hover {
     background: rgba(255,255,255,0.2);
+}
+.sidebar a.logout {
+    margin-top: auto;
+    background: #dc3545;
+}
+.sidebar a.logout:hover {
+    background: #c82333;
 }
 .date-form select {
     padding: 5px 10px;

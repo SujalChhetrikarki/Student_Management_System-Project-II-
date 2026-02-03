@@ -60,56 +60,180 @@ $subjects = $conn->query("
     ORDER BY s.subject_id DESC
 ");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Manage Subjects</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-body { display: flex; min-height: 100vh; background: #f4f6f9; }
-.sidebar {
-    width: 220px; background: #111; color: #fff;
-    display: flex; flex-direction: column;
-    padding-top: 20px; position: fixed; top: 0; left: 0; bottom: 0;
-}
-.sidebar h2 { text-align: center; color: #00bfff; margin-bottom: 30px; }
-.sidebar a {
-    display: block; padding: 12px 20px; margin: 5px 15px;
-    background: #222; color: #fff; text-decoration: none;
-    border-radius: 6px;
-}
-.sidebar a:hover { background: #00bfff; color: #111; }
-.sidebar a.logout { background: #dc3545; }
-
-.header {
-    position: fixed; top: 0; left: 220px; right: 0;
-    height: 80px; background: #00bfff; color: #fff;
-    display: flex; align-items: center; justify-content: center;
+:root{
+  --sidebar-width: 240px;
+  --primary: #2563eb;
+  --dark: #0f172a;
+  --bg: #f1f5f9;
+  --card: #ffffff;
 }
 
-.main {
-    margin-left: 220px; width: calc(100% - 220px);
-    padding-top: 120px; display: flex; justify-content: center;
+/* ===== Base ===== */
+body{
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: #1f2937;
+  display: flex;
 }
 
-.container {
-    width: 700px; background: #fff; padding: 30px;
-    border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.2);
+/* ===== Sidebar ===== */
+.sidebar{
+  width: var(--sidebar-width);
+  background: var(--dark);
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-th, td { padding: 10px; border: 1px solid #ddd; }
-th { background: #00bfff; color: #fff; }
-a.delete { background: #dc3545; color: #fff; padding: 5px 10px; border-radius: 5px; text-decoration: none; }
-.success { color: green; margin-bottom: 10px; }
-.error { color: red; margin-bottom: 10px; }
-button { padding: 12px; width: 100%; background: #00bfff; color: #fff; border: none; border-radius: 6px; }
-select, input { width: 100%; padding: 10px; margin-top: 5px; }
+.sidebar h2{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #60a5fa;
+}
+
+.sidebar a{
+  display: block;
+  padding: 12px 18px;
+  margin: 8px 15px;
+  color: #e5e7eb;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover{
+  background: #1e293b;
+}
+
+.sidebar a.logout{
+  background: #7f1d1d;
+}
+
+.sidebar a.logout:hover{
+  background: #dc2626;
+}
+
+/* ===== Header ===== */
+.header{
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: 80px;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  z-index: 10;
+}
+
+/* ===== Main ===== */
+.main{
+  margin-left: var(--sidebar-width);
+  padding: 100px 30px 30px 30px;
+  width: calc(100% - var(--sidebar-width));
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== Container ===== */
+.container{
+  width: 700px;
+  background: var(--card);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+/* ===== Forms ===== */
+form label{
+  font-weight: 500;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+form input, form select{
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+form button{
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form button:hover{
+  background: #1d4ed8;
+}
+
+/* ===== Table ===== */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+
+th, td{
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th{
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+tr:hover{
+  background: #f8fafc;
+}
+
+/* ===== Action Buttons ===== */
+a.delete{
+  background: #ef4444;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+a.delete:hover{
+  background: #dc2626;
+}
+
+/* ===== Alerts ===== */
+.success{ color: green; margin-bottom: 10px; font-weight: 500;}
+.error{ color: red; margin-bottom: 10px; font-weight: 500; }
 </style>
 </head>
-
 <body>
 
 <div class="sidebar">
@@ -127,9 +251,7 @@ select, input { width: 100%; padding: 10px; margin-top: 5px; }
     <a href="../Admin/logout.php" class="logout">🚪 Logout</a>
 </div>
 
-<div class="header">
-    <h1>Subject Management</h1>
-</div>
+<div class="header">📖 Manage Subjects</div>
 
 <div class="main">
 <div class="container">
@@ -187,7 +309,6 @@ select, input { width: 100%; padding: 10px; margin-top: 5px; }
 <?php else: ?>
 <tr><td colspan="4" style="text-align:center;">No subjects found</td></tr>
 <?php endif; ?>
-
 </table>
 
 </div>

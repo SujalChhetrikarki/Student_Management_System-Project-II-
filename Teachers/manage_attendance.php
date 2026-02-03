@@ -109,30 +109,173 @@ if ($subject_id) {
 <meta charset="UTF-8">
 <title>Manage Attendance</title>
 <style>
-body { font-family: "Segoe UI", Arial; background: #f9fafc; margin: 0; padding: 0; color: #333; }
-header { background: #0066cc; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; }
-header h1 { margin: 0; font-size: 24px; }
-header a.logout-btn { background: #dc3545; color: white; padding: 8px 15px; border-radius: 6px; text-decoration: none; font-weight: bold; }
-header a.logout-btn:hover { background: #b02a37; }
-.container { max-width: 1000px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-h2 { color: #007bff; }
-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-th { background: #007bff; color: #fff; }
-tr:nth-child(even) { background: #f2f2f2; }
-.btn { padding: 8px 14px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; margin-right: 10px; }
-.btn:hover { background: #0056b3; }
-.success { color: green; font-weight: bold; }
-.date-form { margin-bottom: 10px; }
-input[type="date"], select { padding: 5px; border-radius: 5px; border: 1px solid #ccc; }
+body { 
+    font-family: "Segoe UI", Arial; 
+    background: #f9fafc; 
+    margin: 0; 
+    padding: 0; 
+    color: #333; 
+    display: flex;
+}
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #0066cc;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #e5e7eb;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+.sidebar a:hover {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+}
+.sidebar a.logout {
+    margin-top: auto;
+    background: #7f1d1d;
+}
+.sidebar a.logout:hover {
+    background: #dc2626;
+}
+.container { 
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 30px; 
+    background: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+}
+h2 { 
+    color: #0066cc; 
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #0066cc;
+}
+table { 
+    width: 100%; 
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px; 
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+th, td { 
+    border: none;
+    padding: 14px 16px; 
+    text-align: center; 
+}
+th { 
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: #fff; 
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+tr:nth-child(even) { 
+    background: #f8f9fa; 
+}
+tr:hover {
+    background: #e6f0ff;
+    transition: background 0.2s;
+}
+.btn { 
+    padding: 10px 18px; 
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white; 
+    text-decoration: none; 
+    border-radius: 8px; 
+    font-weight: 500; 
+    margin-right: 10px;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,123,255,0.3);
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+.btn:hover { 
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.4);
+}
+.success { 
+    color: #28a745; 
+    font-weight: 600;
+    padding: 12px 20px;
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+.date-form { 
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+.date-form label {
+    font-weight: 600;
+    color: #333;
+    margin-right: 10px;
+}
+input[type="date"], select { 
+    padding: 10px 14px; 
+    border-radius: 8px; 
+    border: 2px solid #dee2e6;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+input[type="date"]:focus, select:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+}
+input[type="radio"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
 </style>
 </head>
 <body>
 
-<header>
-    <h1>Manage Attendance</h1>
-    <a href="logout.php" class="logout-btn">Logout</a>
-</header>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>👨‍🏫 Teacher Panel</h2>
+    <a href="teacher_dashboard.php">🏠 Dashboard</a>
+    <a href="view_students.php">👥 View Students</a>
+    <a href="manage_attendance.php">📅 Manage Attendance</a>
+    <a href="manage_marks.php">📊 Manage Marks</a>
+    <a href="change_password.php">🔑 Change Password</a>
+    <a href="logout.php" class="logout">🚪 Logout</a>
+</div>
 
 <div class="container">
 <h2>🗓 Manage Attendance</h2>

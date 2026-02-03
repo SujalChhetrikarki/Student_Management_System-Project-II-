@@ -2,13 +2,11 @@
 session_start();
 include '../Database/db_connect.php';
 
-// Check if admin is logged in
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");
     exit;
 }
 
-// Handle approval form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['approve'])) {
     $result_ids = $_POST['result_id'] ?? [];
     foreach ($result_ids as $rid) {
@@ -20,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['approve'])) {
     exit;
 }
 
-// Fetch all pending results grouped by class
 $sql = "SELECT r.result_id, r.marks_obtained, r.average_marks, e.exam_date, e.term,
                s.subject_name, c.class_name, st.name as student_name
         FROM results r
@@ -41,57 +38,168 @@ $msg = $_GET['msg'] ?? '';
 <meta charset="UTF-8">
 <title>Admin - Approve Results</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f9; }
-.sidebar { width: 220px; background: #111; color: #fff; height: 100vh; position: fixed; left: 0; top: 0; padding-top: 20px; }
-.sidebar h2 { text-align: center; margin-bottom: 30px; font-size: 20px; color: #00bfff; }
-.sidebar a { display: block; padding: 12px 20px; margin: 8px 15px; background: #222; color: #fff; text-decoration: none; border-radius: 6px; transition: 0.3s; }
-.sidebar a:hover { background: #00bfff; color: #111; }
-.sidebar a.logout { background: #dc3545; }
-.sidebar a.logout:hover { background: #ff4444; color: #fff; }
+:root {
+    --sidebar-width: 240px;
+    --primary: #2563eb;
+    --dark: #0f172a;
+    --bg: #f1f5f9;
+    --card: #fff;
+}
 
-.container { margin-left: 240px; padding: 20px; }
-h2 { margin-top: 0; }
-table { border-collapse: collapse; width: 100%; background: #fff; }
-th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-th { background: #00bfff; color: #fff; }
-.btn { padding: 8px 14px; background: #00bfff; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-.btn:hover { background: #0056b3; }
+/* ===== Base ===== */
+body{
+  margin:0;
+  font-family:"Segoe UI", Arial, sans-serif;
+  display:flex;
+  background: var(--bg);
+  color:#1f2937;
+}
+
+/* ===== Sidebar ===== */
+.sidebar{
+  width: var(--sidebar-width);
+  background: var(--dark);
+  color:#fff;
+  height:100vh;
+  position:fixed;
+  left:0;
+  top:0;
+  padding-top:20px;
+  display:flex;
+  flex-direction:column;
+}
+.sidebar h2{
+  text-align:center;
+  margin-bottom:30px;
+  font-size:20px;
+  color:#60a5fa;
+}
+.sidebar a{
+  display:block;
+  padding:12px 18px;
+  margin:8px 15px;
+  color:#e5e7eb;
+  text-decoration:none;
+  border-radius:10px;
+  transition:0.3s;
+}
+.sidebar a:hover{background:#1e293b;}
+.sidebar a.logout{background:#7f1d1d;}
+.sidebar a.logout:hover{background:#dc2626;}
+
+/* ===== Header ===== */
+.header{
+  position: fixed;
+  top:0;
+  left: var(--sidebar-width);
+  right:0;
+  height:80px;
+  background: var(--primary);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:600;
+  z-index:10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ===== Main ===== */
+.main{
+  margin-left: var(--sidebar-width);
+  padding: 100px 30px 30px 30px;
+  width: calc(100% - var(--sidebar-width));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* ===== Container ===== */
+.container{
+  width: 100%;
+  max-width: 1000px;
+  background: var(--card);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+/* ===== Table ===== */
+table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top:20px;
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+}
+th, td{
+  padding:12px;
+  text-align:center;
+  border-bottom:1px solid #e5e7eb;
+}
+th{
+  background: var(--primary);
+  color:#fff;
+  font-weight:600;
+}
+tr:hover{background:#f8fafc;}
+input[type="checkbox"]{width:auto;}
+
+/* ===== Button ===== */
+.btn{
+  margin-top:20px;
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  background: var(--primary);
+  color:#fff;
+  font-weight:500;
+  cursor:pointer;
+  transition:0.3s;
+}
+.btn:hover{background:#1d4ed8;}
+
+/* ===== Messages ===== */
+.msg{ text-align:center; margin-bottom:15px; font-weight:500; color:#16a34a; }
+
 </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>Admin Panel</h2>
-    <a href="../Admin/index.php">🏠 Home</a>
-    <a href="./Manage_student/Managestudent.php">📚 Manage Students</a>
-    <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Manage Teachers</a>
-    <a href="./classes/classes.php">🏫 Manage Classes</a>
-    <a href="./subjects.php">📖 Manage Subjects</a>
-    <a href="./Managebook.php">📚 Manage Books</a>
-    <a href="./add_student.php">➕ Add Student</a>
-    <a href="./add_teacher.php">➕ Add Teacher</a>
-    <a href="./Add_exam/add_exam.php">➕ Add Exam</a>
-    <a href="./admin_approve_results.php">✅ Approve Results</a>
-    <a href="logout.php" class="logout">🚪 Logout</a>
-  </div>
+<div class="sidebar">
+  <h2>Admin Panel</h2>
+  <a href="../Admin/index.php">🏠 Home</a>
+  <a href="./Manage_student/Managestudent.php">📚 Manage Students</a>
+  <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Manage Teachers</a>
+  <a href="./classes/classes.php">🏫 Manage Classes</a>
+  <a href="./subjects.php">📖 Manage Subjects</a>
+  <a href="./Managebook.php">📚 Manage Books</a>
+  <a href="./add_student.php">➕ Add Student</a>
+  <a href="./add_teacher.php">➕ Add Teacher</a>
+  <a href="./Add_exam/add_exam.php">➕ Add Exam</a>
+  <a href="./admin_approve_results.php">✅ Approve Results</a>
+  <a href="logout.php" class="logout">🚪 Logout</a>
+</div>
 
-<!-- Main Content -->
-<div class="container">
-    <h2>✅ Approve Pending Results (Class-wise)</h2>
-    <?php if($msg) echo "<p style='color:green;'>{$msg}</p>"; ?>
+<div class="header">✅ Approve Pending Results</div>
+
+<div class="main">
+  <div class="container">
+    <?php if($msg) echo "<p class='msg'>{$msg}</p>"; ?>
 
     <form method="POST">
-    <table>
+      <table>
         <tr>
-            <th>Select</th>
-            <th>Student</th>
-            <th>Class</th>
-            <th>Subject</th>
-            <th>Term</th>
-            <th>Exam Date</th>
-            <th>Marks</th>
-            <th>Average</th>
+          <th>Select</th>
+          <th>Student</th>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Term</th>
+          <th>Exam Date</th>
+          <th>Marks</th>
+          <th>Average</th>
         </tr>
 
         <?php if($results->num_rows==0): ?>
@@ -99,21 +207,24 @@ th { background: #00bfff; color: #fff; }
         <?php else: ?>
         <?php while($r=$results->fetch_assoc()): ?>
         <tr>
-            <td><input type="checkbox" name="result_id[]" value="<?= $r['result_id'] ?>"></td>
-            <td><?= htmlspecialchars($r['student_name']) ?></td>
-            <td><?= htmlspecialchars($r['class_name']) ?></td>
-            <td><?= htmlspecialchars($r['subject_name']) ?></td>
-            <td><?= htmlspecialchars($r['term']) ?></td>
-            <td><?= htmlspecialchars($r['exam_date']) ?></td>
-            <td><?= htmlspecialchars($r['marks_obtained']) ?></td>
-            <td><?= number_format($r['average_marks'],2) ?></td>
+          <td><input type="checkbox" name="result_id[]" value="<?= $r['result_id'] ?>"></td>
+          <td><?= htmlspecialchars($r['student_name']) ?></td>
+          <td><?= htmlspecialchars($r['class_name']) ?></td>
+          <td><?= htmlspecialchars($r['subject_name']) ?></td>
+          <td><?= htmlspecialchars($r['term']) ?></td>
+          <td><?= htmlspecialchars($r['exam_date']) ?></td>
+          <td><?= htmlspecialchars($r['marks_obtained']) ?></td>
+          <td><?= number_format($r['average_marks'],2) ?></td>
         </tr>
         <?php endwhile; ?>
         <?php endif; ?>
-    </table>
-    <br>
-    <button type="submit" name="approve" class="btn">Approve Selected Results</button>
+      </table>
+
+      <?php if($results->num_rows>0): ?>
+      <button type="submit" name="approve" class="btn">Approve Selected Results</button>
+      <?php endif; ?>
     </form>
+  </div>
 </div>
 
 </body>
