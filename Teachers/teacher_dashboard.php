@@ -63,55 +63,60 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
-    display: flex;
+    padding-top: 70px;
 }
-/* Sidebar */
-.sidebar {
-    width: 240px;
-    height: 100vh;
+/* Modern Top Navigation */
+.top-nav {
     position: fixed;
     top: 0;
     left: 0;
-    background: #0066cc;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 15px;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-}
-.sidebar h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 20px;
-    color: #fff;
-}
-.sidebar a {
+    padding: 0 30px;
+    height: 70px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 15px;
-    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.nav-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0066cc;
     text-decoration: none;
-    color: #e5e7eb;
-    border-radius: 10px;
-    transition: background 0.3s;
 }
-.sidebar a:hover {
-    background: rgba(255,255,255,0.2);
-    color: #ffffff;
+.nav-menu {
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }
-.sidebar a.logout {
-    margin-top: auto;
-    background: #7f1d1d;
+.nav-menu a {
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 500;
 }
-.sidebar a.logout:hover {
+.nav-menu a:hover {
+    background: #f9fafc;
+    color: #0066cc;
+}
+.nav-menu a.logout {
     background: #dc2626;
+    color: #fff;
+    margin-left: 10px;
+}
+.nav-menu a.logout:hover {
+    background: #b91c1c;
 }
 .container {
-    margin-left: 240px;
-    width: calc(100% - 240px);
     padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
 }
 .section {
     margin-bottom: 30px;
@@ -228,16 +233,18 @@ body {
 </head>
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <h2>👨‍🏫 Teacher Panel</h2>
-    <a href="teacher_dashboard.php">🏠 Dashboard</a>
-    <a href="view_students.php">👥 View Students</a>
-    <a href="manage_attendance.php">📅 Manage Attendance</a>
-    <a href="manage_marks.php">📊 Manage Marks</a>
-    <a href="change_password.php">🔑 Change Password</a>
-    <a href="logout.php" class="logout">🚪 Logout</a>
-</div>
+<!-- Modern Top Navigation -->
+<nav class="top-nav">
+    <a href="teacher_dashboard.php" class="nav-brand">👨‍🏫 Teacher Panel</a>
+    <div class="nav-menu">
+        <a href="teacher_dashboard.php">🏠 Dashboard</a>
+        <a href="view_students.php">👥 Students</a>
+        <a href="manage_attendance.php">📅 Attendance</a>
+        <a href="manage_marks.php">📊 Marks</a>
+        <a href="change_password.php">🔑 Password</a>
+        <a href="logout.php" class="logout">🚪 Logout</a>
+    </div>
+</nav>
 
 <div class="container">
 

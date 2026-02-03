@@ -62,11 +62,11 @@ $birthdays = $conn->query($sql_birthdays);
   --secondary:#1e40af;
   --bg:#f1f5f9;
   --card:#ffffff;
-  --sidebar:#0f172a;
-  --sidebar-hover:#1e293b;
   --text:#1f2937;
   --muted:#6b7280;
   --danger:#dc2626;
+  --nav-bg:#ffffff;
+  --nav-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 *{
@@ -78,75 +78,68 @@ $birthdays = $conn->query($sql_birthdays);
 
 body{
   background:var(--bg);
-  display:flex;
+  padding-top:70px;
 }
-/* ===== ESSENTIAL SIDEBAR CSS ===== */
-.sidebar{
-  width:240px;          /* sidebar width */
-  height:100vh;         /* full screen height */
-  position:fixed;       /* fixed on left */
+
+/* ===== Modern Top Navigation ===== */
+.top-nav{
+  position:fixed;
   top:0;
   left:0;
-
-  background:#0f172a;   /* sidebar color */
-  color:#ffffff;
-
-  display:flex;         /* for vertical layout */
-  flex-direction:column;
-
-  padding:20px 15px;
-  z-index:1000;         /* stay above main content */
-}
-
-/* Push main content */
-.main{
-  margin-left:240px;    /* SAME as sidebar width */
-  padding:25px;
-}
-
-/* Sidebar title */
-.sidebar h2{
-  text-align:center;
-  margin-bottom:30px;
-  font-size:20px;
-  color:#60a5fa;
-}
-
-/* Sidebar links */
-.sidebar a{
+  right:0;
+  background:var(--nav-bg);
+  box-shadow:var(--nav-shadow);
+  z-index:1000;
+  padding:0 30px;
+  height:70px;
   display:flex;
   align-items:center;
-  gap:10px;
+  justify-content:space-between;
+}
 
-  padding:12px 15px;
-  margin-bottom:10px;
-
+.nav-brand{
+  font-size:22px;
+  font-weight:700;
+  color:var(--primary);
   text-decoration:none;
-  color:#e5e7eb;
-  border-radius:10px;
 }
 
-/* Hover effect */
-.sidebar a:hover{
-  background:#1e293b;
-  color:#ffffff;
+.nav-menu{
+  display:flex;
+  gap:5px;
+  align-items:center;
 }
 
-/* Logout at bottom */
-.sidebar a.logout{
-  margin-top:auto;      /* IMPORTANT */
-  background:#7f1d1d;
+.nav-menu a{
+  padding:10px 18px;
+  text-decoration:none;
+  color:var(--text);
+  border-radius:8px;
+  transition:all 0.3s;
+  font-size:14px;
+  font-weight:500;
 }
 
-.sidebar a.logout:hover{
-  background:#dc2626;
+.nav-menu a:hover{
+  background:var(--bg);
+  color:var(--primary);
 }
 
+.nav-menu a.logout{
+  background:var(--danger);
+  color:#fff;
+  margin-left:10px;
+}
+
+.nav-menu a.logout:hover{
+  background:#b91c1c;
+}
 
 /* ===== Main ===== */
 .main{
-  margin-left:240px;
-  padding:25px;
+  padding:30px;
+  max-width:1400px;
+  margin:0 auto;
   width:100%;
 }
 
@@ -271,32 +264,55 @@ body{
 
 /* ===== Responsive ===== */
 @media(max-width:900px){
-  .sidebar{width:200px;}
-  .main{margin-left:200px;}
+  .nav-menu{
+    flex-wrap:wrap;
+    gap:5px;
+  }
+  .nav-menu a{
+    padding:8px 12px;
+    font-size:13px;
+  }
 }
 
 @media(max-width:700px){
-  .sidebar{display:none;}
-  .main{margin-left:0;}
+  .top-nav{
+    padding:0 15px;
+    height:auto;
+    min-height:70px;
+    flex-direction:column;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+  .nav-menu{
+    width:100%;
+    justify-content:center;
+    margin-top:10px;
+  }
+  body{
+    padding-top:100px;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="sidebar">
-  <h2>Admin Panel</h2>
-  <a href="index.php">🏠 Home</a>
-  <a href="../Admin/Manage_student/Managestudent.php">📚 Manage Students</a>
-  <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Manage Teachers</a>
-  <a href="./classes/classes.php">🏫 Manage Classes</a>
-  <a href="subjects.php">📖 Manage Subjects</a>
-  <a href="Managebook.php">📚 Manage Books</a>
-  <a href="add_student.php">➕ Add Student</a>
-  <a href="add_teacher.php">➕ Add Teacher</a>
-  <a href="./Add_exam/add_exam.php">➕ Add Exam</a>
-  <a href="admin_approve_results.php">✅ Approve Results</a>
-  <a href="logout.php" class="logout">🚪 Logout</a>
-</div>
+<!-- Modern Top Navigation -->
+<nav class="top-nav">
+  <a href="index.php" class="nav-brand">🎓 Admin Panel</a>
+  <div class="nav-menu">
+    <a href="index.php">🏠 Home</a>
+    <a href="./Manage_student/Managestudent.php">📚 Students</a>
+    <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Teachers</a>
+    <a href="./classes/classes.php">🏫 Classes</a>
+    <a href="subjects.php">📖 Subjects</a>
+    <a href="Managebook.php">📚 Books</a>
+    <a href="add_student.php">➕ Add Student</a>
+    <a href="add_teacher.php">➕ Add Teacher</a>
+    <a href="./Add_exam/add_exam.php">➕ Exam</a>
+    <a href="admin_approve_results.php">✅ Results</a>
+    <a href="logout.php" class="logout">🚪 Logout</a>
+  </div>
+</nav>
 
 <div class="main">
   <div class="header">

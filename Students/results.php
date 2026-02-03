@@ -110,12 +110,58 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background: #eef2f7;
     padding: 20px;
+    padding-top: 90px;
+}
+/* Modern Top Navigation */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 0 30px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #00bfff;
+    text-decoration: none;
+}
+.nav-menu {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.nav-menu a {
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+}
+.nav-menu a:hover {
+    background: #f8f9fc;
+    color: #00bfff;
+}
+.nav-menu a.logout {
+    background: #dc3545;
+    color: #fff;
+    margin-left: 10px;
+}
+.nav-menu a.logout:hover {
+    background: #c82333;
 }
 .report-card {
     max-width: 900px;
-    margin-left: 240px;
-    margin-right: auto;
-    margin-top: 20px;
+    margin: 0 auto;
     background: #fff;
     border: 3px solid #00bfff;
     padding: 40px;
@@ -207,7 +253,6 @@ tfoot td {
     display: block;
     text-align: center;
     margin: 20px auto;
-    margin-left: 240px;
 }
 .print-btn button {
     background: #00bfff;
@@ -237,45 +282,6 @@ tfoot td {
         width: 100%;
     }
 }
-.sidebar {
-    width: 240px;
-    background: #00bfff;
-    height: 100vh;
-    position: fixed;
-    top: 0; left: 0;
-    padding: 20px 15px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-}
-.sidebar h2 {
-    color: #fff;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 20px;
-}
-.sidebar a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #fff;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: background 0.3s;
-}
-.sidebar a:hover {
-    background: rgba(255,255,255,0.2);
-}
-.sidebar a.logout {
-    margin-top: auto;
-    background: #dc3545;
-}
-.sidebar a.logout:hover {
-    background: #c82333;
-}
 .date-form select {
     padding: 5px 10px;
     border-radius: 5px;
@@ -283,16 +289,18 @@ tfoot td {
 </style>
 </head>
 <body>
-<!-- Sidebar -->
-<div class="sidebar">
-    <h2>📚 Dashboard</h2>
-    <a href="student_dashboard.php">🏠 Home</a>
-    <a href="attendance.php">📅 Attendance</a>
-    <a href="results.php">📊 Results</a>
-    <a href="profile.php">👤 Profile</a>
-    <a href="change_password.php">🔑 Change Password</a>
-    <a href="logout.php" class="logout">🚪 Logout</a>
-</div>
+<!-- Modern Top Navigation -->
+<nav class="top-nav">
+    <a href="student_dashboard.php" class="nav-brand">🎓 Student Portal</a>
+    <div class="nav-menu">
+        <a href="student_dashboard.php">🏠 Home</a>
+        <a href="attendance.php">📅 Attendance</a>
+        <a href="results.php">📊 Results</a>
+        <a href="profile.php">👤 Profile</a>
+        <a href="change_password.php">🔑 Password</a>
+        <a href="logout.php" class="logout">🚪 Logout</a>
+    </div>
+</nav>
 
 <div class="report-card">
     <div class="school-header">

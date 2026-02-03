@@ -39,11 +39,12 @@ if (isset($_GET['class_id']) && $_GET['class_id'] !== '') {
 <title>Class Wise Subjects</title>
 <style>
 :root{
-  --sidebar-width: 240px;
   --primary: #2563eb;
-  --dark: #0f172a;
   --bg: #f4f6f9;
   --card: #fff;
+  --text: #1f2937;
+  --nav-bg: #ffffff;
+  --nav-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 /* ===== Base ===== */
@@ -51,55 +52,69 @@ body{
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
   background: var(--bg);
-  display: flex;
+  padding-top: 70px;
 }
 
-/* ===== Sidebar ===== */
-.sidebar{
-  width: var(--sidebar-width);
-  background: var(--dark);
-  color: #fff;
-  height: 100vh;
+/* ===== Modern Top Navigation ===== */
+.top-nav{
   position: fixed;
-  padding-top: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  box-shadow: var(--nav-shadow);
+  z-index: 1000;
+  padding: 0 30px;
+  height: 70px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.sidebar h2{
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 20px;
-  color: #60a5fa;
-}
-
-.sidebar a{
-  display: block;
-  padding: 12px 18px;
-  margin: 8px 15px;
-  color: #e5e7eb;
+.nav-brand{
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
   text-decoration: none;
-  border-radius: 10px;
-  transition: 0.3s;
 }
 
-.sidebar a:hover{
-  background: #1e293b;
+.nav-menu{
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
-.sidebar a.logout{
-  background: #7f1d1d;
+.nav-menu a{
+  padding: 10px 18px;
+  text-decoration: none;
+  color: var(--text);
+  border-radius: 8px;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.sidebar a.logout:hover{
+.nav-menu a:hover{
+  background: var(--bg);
+  color: var(--primary);
+}
+
+.nav-menu a.logout{
   background: #dc2626;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.nav-menu a.logout:hover{
+  background: #b91c1c;
 }
 
 /* ===== Main ===== */
 .main{
-  margin-left: var(--sidebar-width);
-  padding: 100px 30px 30px;
-  width: calc(100% - var(--sidebar-width));
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* ===== Header ===== */
@@ -172,21 +187,23 @@ tr:hover{
 
 <body>
 
-<!-- ===== Sidebar ===== -->
-<div class="sidebar">
-    <h2>Admin Panel</h2>
+<!-- Modern Top Navigation -->
+<nav class="top-nav">
+  <a href="index.php" class="nav-brand">🎓 Admin Panel</a>
+  <div class="nav-menu">
     <a href="index.php">🏠 Home</a>
-    <a href="../Admin/Manage_student/Managestudent.php">📚 Manage Students</a>
-    <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Manage Teachers</a>
-    <a href="./classes/classes.php">🏫 Manage Classes</a>
-    <a href="subjects.php">📖 Manage Subjects</a>
-    <a href="Managebook.php">📚 Manage Books</a>
+    <a href="./Manage_student/Managestudent.php">📚 Students</a>
+    <a href="./Manage_Teachers/Teachersshow.php">👨‍🏫 Teachers</a>
+    <a href="./classes/classes.php">🏫 Classes</a>
+    <a href="subjects.php">📖 Subjects</a>
+    <a href="Managebook.php">📚 Books</a>
     <a href="add_student.php">➕ Add Student</a>
     <a href="add_teacher.php">➕ Add Teacher</a>
-    <a href="./Add_exam/add_exam.php">➕ Add Exam</a>
-    <a href="admin_approve_results.php">✅ Approve Results</a>
+    <a href="./Add_exam/add_exam.php">➕ Exam</a>
+    <a href="admin_approve_results.php">✅ Results</a>
     <a href="logout.php" class="logout">🚪 Logout</a>
-</div>
+  </div>
+</nav>
 
 <!-- ===== Main Content ===== -->
 <div class="main">

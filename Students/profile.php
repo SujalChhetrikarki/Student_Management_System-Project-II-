@@ -83,49 +83,60 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background: #f8f9fc;
     color: #333;
+    padding-top: 70px;
 }
-.sidebar {
-    width: 240px;
-    background: #00bfff;
-    height: 100vh;
+/* Modern Top Navigation */
+.top-nav {
     position: fixed;
-    top: 0; left: 0;
-    padding: 20px 15px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
-}
-.sidebar h2 {
-    color: #fff;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 20px;
-}
-.sidebar a {
+    padding: 0 30px;
+    height: 70px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #fff;
-    padding: 12px 15px;
-    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.nav-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #00bfff;
     text-decoration: none;
-    border-radius: 10px;
-    transition: background 0.3s;
 }
-.sidebar a:hover {
-    background: rgba(255,255,255,0.2);
+.nav-menu {
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }
-.sidebar a.logout {
-    margin-top: auto;
+.nav-menu a {
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+}
+.nav-menu a:hover {
+    background: #f8f9fc;
+    color: #00bfff;
+}
+.nav-menu a.logout {
     background: #dc3545;
+    color: #fff;
+    margin-left: 10px;
 }
-.sidebar a.logout:hover {
+.nav-menu a.logout:hover {
     background: #c82333;
 }
 .main {
-    margin-left: 240px;
     padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
 }
 .card {
     background: #fff;
@@ -188,15 +199,18 @@ tr:hover {
 </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>📚 Dashboard</h2>
-        <a href="student_dashboard.php">🏠 Home</a>
-        <a href="attendance.php">📅 Attendance</a>
-        <a href="results.php">📊 Results</a>
-        <a href="profile.php">👤 Profile</a>
-        <a href="change_password.php">🔑 Change Password</a>
-        <a href="logout.php">🚪 Logout</a>
-    </div>
+    <!-- Modern Top Navigation -->
+    <nav class="top-nav">
+        <a href="student_dashboard.php" class="nav-brand">🎓 Student Portal</a>
+        <div class="nav-menu">
+            <a href="student_dashboard.php">🏠 Home</a>
+            <a href="attendance.php">📅 Attendance</a>
+            <a href="results.php">📊 Results</a>
+            <a href="profile.php">👤 Profile</a>
+            <a href="change_password.php">🔑 Password</a>
+            <a href="logout.php" class="logout">🚪 Logout</a>
+        </div>
+    </nav>
 
     <div class="main">
         <div class="card">
