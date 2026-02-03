@@ -119,7 +119,7 @@ select, input { width: 100%; padding: 10px; margin-top: 5px; }
     <a href="../Admin/Manage_Teachers/Teachersshow.php">👨‍🏫 Manage Teachers</a> 
     <a href="../Admin/Classes/classes.php">🏫 Manage Classes</a> 
     <a href="subjects.php">📖 Manage Subjects</a> 
-    <a href="../Managebook.php">📚 Manage Books</a>
+    <a href="./Managebook.php">📚 Manage Books</a>
     <a href="../Admin/add_student.php">➕ Add Student</a> 
     <a href="../Admin/add_teacher.php">➕ Add Teacher</a> 
     <a href="../Admin/Add_exam/add_exam.php">➕ Add Exam</a> 
